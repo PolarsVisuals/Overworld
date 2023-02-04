@@ -1,0 +1,158 @@
+{
+    "name": "PlayerControls",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "c18b5188-9a20-4bd3-a7db-c959b116bbeb",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "4ea3e89e-b10f-4188-8a1c-1e46becd39a3",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "73489269-432e-4f31-8ded-c9ee985dfa3b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Crouch",
+                    "type": "Button",
+                    "id": "99d0ac19-3b35-4f81-b6c5-0b37652a70c8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Sprint",
+                    "type": "Button",
+                    "id": "93450ec3-ce87-40c0-947c-1b8be4f71a19",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Look",
+                    "type": "Value",
+                    "id": "d30cd8b3-5849-4c3c-b060-e778c60f03e5",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "WASD",
+                    "id": "6533b756-3213-4da9-9d37-6eed81c5335e",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "8dad0677-4972-4ddf-a9da-08d8d2a21b22",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "e566b9de-0cfe-4cf3-9205-f868f49f73c0",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "f3312f25-d1b6-4772-ae65-61296e6ccd5d",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "b6f0fc00-9657-4dab-81ee-f42bd2e65a56",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "df03888d-747b-43d9-90d5-bcdce85039d0",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7b184fdd-b5e7-4ef0-8206-1ce2f0664b03",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8ac39eec-d1fe-425e-9ad4-eb21307c8b29",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "85b1b16f-3641-4469-891b-325b6f61a870",
+                    "path": "<Pointer>/delta",
+                    "interactions": "",
+                    "processors": "InvertVector2(invertX=false),ScaleVector2(x=0.05,y=0.05)",
+                    "groups": "",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
