@@ -54,7 +54,7 @@ public class PlayerCombat : MonoBehaviour
             starterAssetsInputs.draw = false;
         }
 
-        if (starterAssetsInputs.shoot)
+        if (starterAssetsInputs.shoot && weaponDrawn)
         {
             GetComponent<ThirdPersonController>().canMove = false;
 
@@ -108,5 +108,15 @@ public class PlayerCombat : MonoBehaviour
     public void NewEvent()
     {
         Debug.Log("Delete blank event.");
+    }
+
+    public void StartDealDamage()
+    {
+        currentWeaponInHand.GetComponentInChildren<DamageDealer>().StartDealDamage();
+    }
+
+    public void EndDealDamage()
+    {
+        currentWeaponInHand.GetComponentInChildren<DamageDealer>().EndDealDamage();
     }
 }
