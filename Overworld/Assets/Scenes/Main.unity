@@ -317,7 +317,7 @@ MonoBehaviour:
   spawnTime: 5
   lightening: {fileID: 9126157603136114988, guid: 1ffaff07ae864bf48b882ca277f0bdcf, type: 3}
   beam: {fileID: 8346397557549504350, guid: 2894f22e69a47254daa017d7e8ec916b, type: 3}
-  enemy: {fileID: 6775225493112742670, guid: dfc71897b67abbd4b815e8511fd9199b, type: 3}
+  enemy: {fileID: 9190343211074361586, guid: dfc71897b67abbd4b815e8511fd9199b, type: 3}
 --- !u!4 &366892648
 Transform:
   m_ObjectHideFlags: 0
