@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageDealer : MonoBehaviour
+public class EnemyDamageDealer : MonoBehaviour
 {
     bool canDealDamage;
-    List<GameObject> hasDealtDamage;
+    bool hasDealtDamage;
 
     [SerializeField] float weaponLength;
     [SerializeField] float weaponDamage;
@@ -13,22 +13,22 @@ public class DamageDealer : MonoBehaviour
     private void Start()
     {
         canDealDamage = false;
-        hasDealtDamage = new List<GameObject>();
+        hasDealtDamage = false;
     }
 
     private void Update()
     {
-        if (canDealDamage)
+        if (canDealDamage && !hasDealtDamage)
         {
             RaycastHit hit;
-            int layerMask = 1 << 9;
+            int layerMask = 1 << 8;
 
             if (Physics.Raycast(transform.position, -transform.up, out hit, weaponLength, layerMask))
             {
-                if (hit.transform.TryGetComponent(out Enemy enemy) && !hasDealtDamage.Contains(hit.transform.gameObject))
+                if(hit.transform.TryGetComponent(out PlayerHealth health))
                 {
-                    enemy.TakeDamage(weaponDamage);
-                    hasDealtDamage.Add(hit.transform.gameObject);
+                    health.TakeDamage(weaponDamage);
+                    hasDealtDamage = true;
                 }
             }
         }
@@ -37,7 +37,7 @@ public class DamageDealer : MonoBehaviour
     public void StartDealDamage()
     {
         canDealDamage = true;
-        hasDealtDamage.Clear();
+        hasDealtDamage = false;
     }
 
     public void EndDealDamage()
