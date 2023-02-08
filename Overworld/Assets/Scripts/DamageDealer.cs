@@ -27,6 +27,7 @@ public class DamageDealer : MonoBehaviour
             {
                 if (hit.transform.TryGetComponent(out Enemy enemy) && !hasDealtDamage.Contains(hit.transform.gameObject))
                 {
+                    Debug.Log("Enemy has taken damage");
                     enemy.TakeDamage(weaponDamage);
                     hasDealtDamage.Add(hit.transform.gameObject);
                 }

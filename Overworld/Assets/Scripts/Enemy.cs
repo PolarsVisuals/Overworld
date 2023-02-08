@@ -27,6 +27,8 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
+        timePassed += Time.deltaTime;
+
         animator.SetFloat("speed", agent.velocity.magnitude / agent.speed);
 
         if(timePassed >= attackCD)
@@ -37,8 +39,6 @@ public class Enemy : MonoBehaviour
                 timePassed = 0;
             }
         }
-
-        timePassed += Time.deltaTime;
 
         if (newDestinationCD <= 0 && Vector3.Distance(player.transform.position, transform.position) <= aggroRange)
         {
