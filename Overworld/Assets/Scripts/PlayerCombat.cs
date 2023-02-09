@@ -54,13 +54,13 @@ public class PlayerCombat : MonoBehaviour
             starterAssetsInputs.draw = false;
         }
 
-        if (starterAssetsInputs.shoot && weaponDrawn)
+        if (starterAssetsInputs.attack && weaponDrawn)
         {
             GetComponent<ThirdPersonController>().canMove = false;
 
             InitiateAttack();
 
-            starterAssetsInputs.shoot = false;
+            starterAssetsInputs.attack = false;
         }
 
         if(isAttacking)
@@ -69,7 +69,7 @@ public class PlayerCombat : MonoBehaviour
             clipLength = animator.GetCurrentAnimatorClipInfo(1)[0].clip.length;
             clipSpeed = animator.GetCurrentAnimatorStateInfo(1).speed;
 
-            if(timePassed >= clipLength / clipSpeed && starterAssetsInputs.shoot)
+            if(timePassed >= clipLength / clipSpeed && starterAssetsInputs.attack)
             {
                 animator.SetTrigger("attack");
             }

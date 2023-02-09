@@ -1565,9 +1565,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.16261438
-  m_Height: 1.2306682
+  m_Height: 1.9174618
   m_Direction: 1
-  m_Center: {x: 0, y: 0.6101307, z: 0.05}
+  m_Center: {x: 0, y: 0.9535275, z: 0.049999997}
 --- !u!114 &1656190097215362762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1580,10 +1580,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b715952822b79c24b97d0fdab1da568b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 3
+  health: 1
   attackCD: 2
   attackRange: 1.5
-  aggroRange: 30
+  aggroRange: 100
 --- !u!195 &1656190097215362765
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1605,7 +1605,7 @@ NavMeshAgent:
   m_Height: 1
   m_BaseOffset: -0.07
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 0
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &5710712267784408881
 GameObject:
   m_ObjectHideFlags: 0
