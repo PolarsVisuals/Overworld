@@ -47,7 +47,7 @@ public class Enemy : MonoBehaviour
         }
 
         newDestinationCD -= Time.deltaTime;
-        transform.LookAt(player.transform);
+        //transform.LookAt(player.transform);
     }
 
     public void TakeDamage(float amount)
