@@ -229,7 +229,7 @@
                 {
                     "name": "",
                     "id": "c8fcd86e-dcfd-4f88-8e93-b638cdbf3320",
-                    "path": "<Gamepad>/leftTrigger",
+                    "path": "<Gamepad>/leftStickPress",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -250,11 +250,33 @@
                 },
                 {
                     "name": "",
+                    "id": "5096eb35-0156-4d33-a47b-7d56eaf6bcd3",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Draw",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "ce745fb8-2541-43ff-88a1-5a8275d8bcbc",
                     "path": "<Mouse>/leftButton",
                     "interactions": "Tap",
                     "processors": "",
                     "groups": "KeyboardMouse",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4cf92c98-286c-4532-8c5e-6e5c09112ab2",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
                     "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false

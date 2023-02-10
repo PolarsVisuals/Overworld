@@ -21,6 +21,9 @@ namespace StarterAssets
         [Tooltip("Sprint speed of the character in m/s")]
         public float SprintSpeed = 5.335f;
 
+        public float sensX = 1;
+        public float sensY = 1;
+
         [Tooltip("How fast the character turns to face movement direction")]
         [Range(0.0f, 0.3f)]
         public float RotationSmoothTime = 0.12f;
@@ -202,8 +205,8 @@ namespace StarterAssets
                 //Don't multiply mouse input by Time.deltaTime;
                 float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 
-                _cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier;
-                _cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier;
+                _cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier * sensX;
+                _cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier * sensY;
             }
 
             // clamp our rotations so our values are limited 360 degrees
