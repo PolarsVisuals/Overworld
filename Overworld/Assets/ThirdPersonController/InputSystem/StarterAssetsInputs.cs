@@ -20,7 +20,6 @@ namespace StarterAssets
 
 		[Header("Mouse Cursor Settings")]
 		public bool cursorLocked = true;
-		public bool cursorInputForLook = true;
 
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 		public void OnMove(InputValue value)
@@ -55,10 +54,41 @@ namespace StarterAssets
 		{
 			AttackInput(value.isPressed);
 		}
+#else
+		private void Update()
+		{
+			//Move: gets the horizontal and vertical axis and convertys to a Vector2
+			float horizontal = Input.GetAxisRaw("Horizontal");
+			float vertical = Input.GetAxisRaw("Vertical");
+
+			Vector2 movement = new Vector2(horizontal, vertical);
+
+			MoveInput(movement);
+
+			//Look:
+			float mouseX = Input.GetAxisRaw("Mouse X");
+			float mouseY = Input.GetAxisRaw("Mouse Y");
+
+			Vector2 look = new Vector2(mouseX, mouseY);
+
+			LookInput(look);
+
+			//Jump
+			JumpInput(Input.GetButtonDown("Jump"));
+
+			//Sprint
+			SprintInput(Input.GetButton("Fire3"));
+
+			//Draw
+			DrawInput(Input.GetButtonDown("Fire1"));
+
+			//Attack
+			AttackInput(Input.GetButtonDown("Fire2"));
+		}
 #endif
 
 
-		public void MoveInput(Vector2 newMoveDirection)
+        public void MoveInput(Vector2 newMoveDirection)
 		{
 			move = newMoveDirection;
 		} 
