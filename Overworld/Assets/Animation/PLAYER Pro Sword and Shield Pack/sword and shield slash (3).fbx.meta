@@ -36,7 +36,7 @@ ModelImporter:
       name: player_combatAttack2
       takeName: mixamo.com
       internalID: -203655887218126122
-      firstFrame: 3
+      firstFrame: 12
       lastFrame: 46
       wrapMode: 0
       orientationOffsetY: 0

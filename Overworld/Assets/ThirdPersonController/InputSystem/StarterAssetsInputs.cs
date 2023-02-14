@@ -12,7 +12,8 @@ namespace StarterAssets
 		public Vector2 look;
 		public bool jump;
 		public bool sprint;
-		public bool attack;
+		public bool attack1;
+		public bool attack2;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -63,10 +64,13 @@ namespace StarterAssets
 			JumpInput(Input.GetButtonDown("Jump"));
 
 			//Sprint
-			SprintInput(Input.GetButton("Fire3"));
+			SprintInput(Input.GetButton("Sprint"));
 
-			//Attack
-			AttackInput(Input.GetButtonDown("Fire1"));
+			//Attack1
+			Attack1Input(Input.GetButtonDown("Attack1"));
+
+			//Attack2
+			Attack2Input(Input.GetButtonDown("Attack2"));
 		}
 
         private void LateUpdate()
@@ -102,9 +106,14 @@ namespace StarterAssets
 			sprint = newSprintState;
 		}
 
-		public void AttackInput(bool newAttackState)
+		public void Attack1Input(bool newAttack1State)
 		{
-			attack = newAttackState;
+			attack1 = newAttack1State;
+		}
+
+		public void Attack2Input(bool newAttack2State)
+		{
+			attack2 = newAttack2State;
 		}
 
 		private void OnApplicationFocus(bool hasFocus)
