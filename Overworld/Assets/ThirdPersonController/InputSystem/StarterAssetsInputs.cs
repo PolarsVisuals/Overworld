@@ -12,7 +12,6 @@ namespace StarterAssets
 		public Vector2 look;
 		public bool jump;
 		public bool sprint;
-		public bool draw;
 		public bool attack;
 
 		[Header("Movement Settings")]
@@ -45,11 +44,6 @@ namespace StarterAssets
 			SprintInput(value.isPressed);
 		}
 
-		public void OnDraw(InputValue value)
-		{
-			DrawInput(value.isPressed);
-		}
-
 		public void OnAttack(InputValue value)
 		{
 			AttackInput(value.isPressed);
@@ -61,7 +55,7 @@ namespace StarterAssets
 			float horizontal = Input.GetAxisRaw("Horizontal");
 			float vertical = Input.GetAxisRaw("Vertical");
 
-			Vector2 movement = new Vector2(horizontal, vertical);
+			Vector2 movement = new Vector2(horizontal, vertical).normalized;
 
 			MoveInput(movement);
 
@@ -71,16 +65,13 @@ namespace StarterAssets
 			//Sprint
 			SprintInput(Input.GetButton("Fire3"));
 
-			//Draw
-			DrawInput(Input.GetButtonDown("Fire2"));
-
 			//Attack
 			AttackInput(Input.GetButtonDown("Fire1"));
 		}
 
         private void LateUpdate()
         {
-			//Look:
+			//Look
 			float mouseX = Input.GetAxis("Mouse X");
 			float mouseY = Input.GetAxis("Mouse Y");
 
@@ -109,11 +100,6 @@ namespace StarterAssets
 		public void SprintInput(bool newSprintState)
 		{
 			sprint = newSprintState;
-		}
-
-		public void DrawInput(bool newDrawState)
-		{
-			draw = newDrawState;
 		}
 
 		public void AttackInput(bool newAttackState)

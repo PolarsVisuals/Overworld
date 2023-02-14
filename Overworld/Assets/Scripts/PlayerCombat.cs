@@ -11,52 +11,33 @@ public class PlayerCombat : MonoBehaviour
 
     [SerializeField] GameObject weapon;
     [SerializeField] GameObject weaponHolder;
-    [SerializeField] GameObject sheathHolder;
 
     GameObject currentWeaponInHand;
-    GameObject currentWeaponInSheath;
 
     private Animator animator;
     private StarterAssetsInputs starterAssetsInputs;
 
-    private bool weaponDrawn;
     private bool isAttacking;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
         starterAssetsInputs = GetComponent<StarterAssetsInputs>();
-        weaponDrawn = false;
         isAttacking = false;
     }
 
     private void Start()
     {
-        currentWeaponInSheath = Instantiate(weapon, sheathHolder.transform);
+        currentWeaponInHand = Instantiate(weapon, weaponHolder.transform);
     }
 
     private void Update()
     {
-        if (starterAssetsInputs.draw)
-        {
-            //Debug.Log("Running");
-            if (!weaponDrawn)
-            {
-                animator.SetTrigger("drawWeapon");
-                weaponDrawn = true;
-            }
-            else
-            {
-                animator.SetTrigger("sheathWeapon");
-                weaponDrawn = false;
-            }
 
-            starterAssetsInputs.draw = false;
-        }
-
-        if (starterAssetsInputs.attack && weaponDrawn)
+        if (starterAssetsInputs.attack && GetComponent<ThirdPersonController>().Grounded == true)
         {
             GetComponent<ThirdPersonController>().canMove = false;
+            GetComponent<ThirdPersonController>().canJump = false;
 
             InitiateAttack();
 
@@ -66,7 +47,12 @@ public class PlayerCombat : MonoBehaviour
         if(isAttacking)
         {
             timePassed += Time.deltaTime;
-            clipLength = animator.GetCurrentAnimatorClipInfo(1)[0].clip.length;
+
+            //Returns an error as it gets the default state first, but doesnt affect anything
+            AnimatorClipInfo[] currentAnimClipInfo = animator.GetCurrentAnimatorClipInfo(1);
+            //Access the current length of the clip
+            clipLength = currentAnimClipInfo[0].clip.length;
+
             clipSpeed = animator.GetCurrentAnimatorStateInfo(1).speed;
 
             if(timePassed >= clipLength / clipSpeed && starterAssetsInputs.attack)
@@ -78,6 +64,7 @@ public class PlayerCombat : MonoBehaviour
                 animator.applyRootMotion = false;
                 animator.SetTrigger("canMove");
                 GetComponent<ThirdPersonController>().canMove = true;
+                GetComponent<ThirdPersonController>().canJump = true;
                 isAttacking = false;
             }
         }
@@ -91,23 +78,6 @@ public class PlayerCombat : MonoBehaviour
         animator.SetFloat("Speed", 0f);
 
         isAttacking = true;
-    }
-
-    public void DrawWeapon()
-    {
-        currentWeaponInHand = Instantiate(weapon, weaponHolder.transform);
-        Destroy(currentWeaponInSheath);
-    }
-
-    public void SheathWeapon()
-    {
-        currentWeaponInSheath = Instantiate(weapon, sheathHolder.transform);
-        Destroy(currentWeaponInHand);
-    }
-
-    public void NewEvent()
-    {
-        Debug.Log("Delete blank event.");
     }
 
     public void StartDealDamage()
