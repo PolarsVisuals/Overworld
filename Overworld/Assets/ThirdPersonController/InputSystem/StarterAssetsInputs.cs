@@ -65,14 +65,6 @@ namespace StarterAssets
 
 			MoveInput(movement);
 
-			//Look:
-			float mouseX = Input.GetAxisRaw("Mouse X");
-			float mouseY = Input.GetAxisRaw("Mouse Y");
-
-			Vector2 look = new Vector2(mouseX, mouseY);
-
-			LookInput(look);
-
 			//Jump
 			JumpInput(Input.GetButtonDown("Jump"));
 
@@ -80,10 +72,21 @@ namespace StarterAssets
 			SprintInput(Input.GetButton("Fire3"));
 
 			//Draw
-			DrawInput(Input.GetButtonDown("Fire1"));
+			DrawInput(Input.GetButtonDown("Fire2"));
 
 			//Attack
-			AttackInput(Input.GetButtonDown("Fire2"));
+			AttackInput(Input.GetButtonDown("Fire1"));
+		}
+
+        private void LateUpdate()
+        {
+			//Look:
+			float mouseX = Input.GetAxis("Mouse X");
+			float mouseY = Input.GetAxis("Mouse Y");
+
+			Vector2 look = new Vector2(mouseX, -mouseY);
+
+			LookInput(look);
 		}
 #endif
 
