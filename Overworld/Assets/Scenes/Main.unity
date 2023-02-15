@@ -326,7 +326,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &366892647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -345,7 +345,7 @@ MonoBehaviour:
   - {fileID: 489028628}
   - {fileID: 64985733}
   - {fileID: 430348842}
-  spawnTime: 10
+  spawnTime: 5
   lightening: {fileID: 9126157603136114988, guid: 1ffaff07ae864bf48b882ca277f0bdcf, type: 3}
   beam: {fileID: 8346397557549504350, guid: 2894f22e69a47254daa017d7e8ec916b, type: 3}
   enemy: {fileID: 5426842388302075400, guid: c56a634b3130d044eb0a76f9c12d3de6, type: 3}
@@ -849,29 +849,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6479393745062617868, guid: c30d578395d1628419f5a6298d277a09, type: 3}
-      propertyPath: jump
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6479393745062617868, guid: c30d578395d1628419f5a6298d277a09, type: 3}
-      propertyPath: analogMovement
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7297293080750636912, guid: c30d578395d1628419f5a6298d277a09, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 7297293080750636923, guid: c30d578395d1628419f5a6298d277a09, type: 3}
-      propertyPath: sensX
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 7297293080750636923, guid: c30d578395d1628419f5a6298d277a09, type: 3}
-      propertyPath: sensY
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 7297293080750636923, guid: c30d578395d1628419f5a6298d277a09, type: 3}
-      propertyPath: SprintSpeed
-      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7930524244947953098, guid: c30d578395d1628419f5a6298d277a09, type: 3}
       propertyPath: m_RootOrder
