@@ -2204,8 +2204,8 @@ MonoBehaviour:
   look: {x: 0, y: 0}
   jump: 0
   sprint: 0
-  attack1: 0
-  attack2: 0
+  attack: 0
+  grapple: 0
   analogMovement: 1
   cursorLocked: 1
 --- !u!114 &7297293080750636924

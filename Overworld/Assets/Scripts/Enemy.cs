@@ -13,10 +13,11 @@ public class Enemy : MonoBehaviour
     [SerializeField] float aggroRange = 4f;
 
     GameObject player;
+    PlayerCombat playerCombatScript;
+
     Animator animator;
     NavMeshAgent agent;
     float timePassed;
-    float newDestinationCD = 0.5f;
 
     private void Start()
     {
@@ -40,14 +41,11 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        if (newDestinationCD <= 0 && Vector3.Distance(player.transform.position, transform.position) <= aggroRange)
+        if (Vector3.Distance(player.transform.position, transform.position) <= aggroRange)
         {
-            newDestinationCD = 0.5f;
             agent.SetDestination(player.transform.position);
         }
 
-        newDestinationCD -= Time.deltaTime;
-        //transform.LookAt(player.transform);
     }
 
     public void TakeDamage(float amount)
@@ -73,7 +71,7 @@ public class Enemy : MonoBehaviour
 
     void Die()
     {
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 
     private void OnDrawGizmos()

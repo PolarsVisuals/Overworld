@@ -9,7 +9,9 @@ public class Spawner : MonoBehaviour
 
     public GameObject lightening;
     public GameObject beam;
-    public GameObject enemy;
+    public GameObject skelly;
+
+    public List<GameObject> enemies = new List<GameObject>();
 
     private void Start()
     {
@@ -23,6 +25,19 @@ public class Spawner : MonoBehaviour
         Instantiate(lightening, spawnPoints[spawnPointIndex]);
         Instantiate(beam, spawnPoints[spawnPointIndex]);
 
-        Instantiate(enemy, spawnPoints[spawnPointIndex]);
+        GameObject enemy = Instantiate(skelly, spawnPoints[spawnPointIndex]);
+
+        enemies.Add(skelly);
+    }
+
+    private void Update()
+    {
+        foreach(GameObject skelly in enemies)
+        {
+            if(skelly == null)
+            {
+                enemies.Remove(skelly);
+            }
+        }
     }
 }

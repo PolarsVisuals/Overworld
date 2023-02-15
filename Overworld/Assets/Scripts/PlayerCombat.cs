@@ -18,7 +18,6 @@ public class PlayerCombat : MonoBehaviour
     private StarterAssetsInputs starterAssetsInputs;
 
     private bool isAttacking;
-    private bool comboAttacking;
     [SerializeField] float attackDelay;
 
     private void Awake()
@@ -26,7 +25,6 @@ public class PlayerCombat : MonoBehaviour
         animator = GetComponent<Animator>();
         starterAssetsInputs = GetComponent<StarterAssetsInputs>();
         isAttacking = false;
-        comboAttacking = false;
         attackDelay = 0;
     }
 
@@ -37,25 +35,23 @@ public class PlayerCombat : MonoBehaviour
 
     private void Update()
     {
-        if (starterAssetsInputs.attack1 && GetComponent<ThirdPersonController>().Grounded == true && timePassed >= attackDelay && comboAttacking == false)
+        /*if (starterAssetsInputs.attack && GetComponent<ThirdPersonController>().Grounded == true && timePassed >= attackDelay)
+        {
+            //GetComponent<ThirdPersonController>().canMove = false;
+            GetComponent<ThirdPersonController>().canJump = false;
+            
+            InitiateAttack();
+
+            starterAssetsInputs.attack = false;
+        }
+
+        if (starterAssetsInputs.grapple && isAttacking == false)
         {
             GetComponent<ThirdPersonController>().canMove = false;
             GetComponent<ThirdPersonController>().canJump = false;
 
-            InitiateAttack(0);
-
-            starterAssetsInputs.attack1 = false;
-        }
-
-        if (starterAssetsInputs.attack2 && GetComponent<ThirdPersonController>().Grounded == true && isAttacking == false)
-        {
-            GetComponent<ThirdPersonController>().canMove = false;
-            GetComponent<ThirdPersonController>().canJump = false;
-
-            InitiateAttack(1);
-
-            starterAssetsInputs.attack2 = false;
-        }
+            starterAssetsInputs.grapple = false;
+        }*/
 
         if (isAttacking)
         {
@@ -68,9 +64,9 @@ public class PlayerCombat : MonoBehaviour
 
             clipSpeed = animator.GetCurrentAnimatorStateInfo(1).speed;
 
-            if(timePassed >= clipLength / clipSpeed && starterAssetsInputs.attack1 && comboAttacking == false)
+            if(timePassed >= attackDelay && starterAssetsInputs.attack)
             {
-                animator.SetTrigger("attack1");
+                animator.SetTrigger("attack");
             }
             if(timePassed >= clipLength / clipSpeed)
             {
@@ -79,28 +75,19 @@ public class PlayerCombat : MonoBehaviour
                 GetComponent<ThirdPersonController>().canMove = true;
                 GetComponent<ThirdPersonController>().canJump = true;
                 isAttacking = false;
-                comboAttacking = false;
             }
         }
     }
 
-    public void InitiateAttack(int attackNo)
+    public void InitiateAttack()
     {
         animator.applyRootMotion = true;
         timePassed = 0f;
-        if(attackNo == 0)
-        {
-            animator.SetTrigger("attack1");
-        }
-        if (attackNo == 1)
-        {
-            animator.SetTrigger("attack2");
-            comboAttacking = true;
-        }
+        animator.SetTrigger("attack");
         animator.SetFloat("Speed", 0f);
 
         isAttacking = true;
-        attackDelay = 0.75f;
+        attackDelay = 0.5f;
     }
 
     public void StartDealDamage()
