@@ -92,7 +92,6 @@ namespace StarterAssets
 
         public bool canMove;
         public bool canJump;
-        public bool activeGrapple;
 
         // timeout deltatime
         private float _jumpTimeoutDelta;
@@ -109,7 +108,6 @@ namespace StarterAssets
         private PlayerInput _playerInput;
 #endif
         private Animator _animator;
-        private Rigidbody rb;
         private CharacterController _controller;
         private StarterAssetsInputs _input;
         private GameObject _mainCamera;
@@ -146,7 +144,6 @@ namespace StarterAssets
             
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
-            rb = GetComponent<Rigidbody>();
             _input = GetComponent<StarterAssetsInputs>();
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
             _playerInput = GetComponent<PlayerInput>();
@@ -226,8 +223,6 @@ namespace StarterAssets
 
         private void Move()
         {
-            if (activeGrapple) return;
-
             if (canMove)
             {
                 // set target speed based on move speed, sprint speed and if sprint is pressed
@@ -368,6 +363,11 @@ namespace StarterAssets
             {
                 _verticalVelocity += Gravity * Time.deltaTime;
             }
+        }
+
+        public void ResetGravity()
+        {
+            _verticalVelocity = -2f;
         }
 
         private static float ClampAngle(float lfAngle, float lfMin, float lfMax)

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b5109f57191f29944b62c88f0081d7c0
+guid: e62283eed9c632849a86463e3a4c21b6
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: axe_jumpStart
+      name: Point
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 57
+      lastFrame: 21
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
