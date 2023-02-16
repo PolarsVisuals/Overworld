@@ -2073,7 +2073,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6177226485259607112
 Transform:
   m_ObjectHideFlags: 0
@@ -2144,8 +2144,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveSpeed: 4
   SprintSpeed: 8
-  sensX: 10
-  sensY: 10
+  sensX: 20
+  sensY: 20
   RotationSmoothTime: 0.12
   SpeedChangeRate: 10
   LandingAudioClip: {fileID: 8300000, guid: ff697d3070687ce4583faa0561a145a2, type: 3}
@@ -2330,7 +2330,8 @@ MonoBehaviour:
   whatIsGrab:
     serializedVersion: 2
     m_Bits: 247
-  maxDistance: 25
+  maxDistance: 100
+  debug: {fileID: 0}
   isGrappling: 0
   timePassed: 0
   weapon: {fileID: 5232661316363729149, guid: 168205d3a92419741a36fdabc5319d21, type: 3}
