@@ -33,7 +33,7 @@ public class PlayerCombat : MonoBehaviour
     {
         if (Input.GetButtonDown("Attack") && GetComponent<PlayerMovement>().grounded == true && timePassed >= attackDelay)
         {
-            //GetComponent<ThirdPersonController>().canMove = false;
+            GetComponent<PlayerMovement>().canMove = false;
             //GetComponent<ThirdPersonController>().canJump = false;
             
             InitiateAttack();
@@ -63,7 +63,7 @@ public class PlayerCombat : MonoBehaviour
             {
                 animator.applyRootMotion = false;
                 animator.SetTrigger("canMove");
-                //GetComponent<ThirdPersonController>().canMove = true;
+                GetComponent<PlayerMovement>().canMove = true;
                 //GetComponent<ThirdPersonController>().canJump = true;
                 isAttacking = false;
             }

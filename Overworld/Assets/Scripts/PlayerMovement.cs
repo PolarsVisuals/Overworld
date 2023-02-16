@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public float sprintSpeed;
 
     bool isSprinting;
+    public bool canMove;
 
     public float groundDrag;
 
@@ -17,6 +18,8 @@ public class PlayerMovement : MonoBehaviour
     public float jumpCooldown;
     public float airMultiplier;
     bool readyToJump;
+
+    bool activeGrapple;
 
     [Header("Ground Check")]
     public float playerHeight;
@@ -39,8 +42,6 @@ public class PlayerMovement : MonoBehaviour
     private int _animIDFreeFall;
     private int _animIDMotionSpeed;
 
-
-
     float horizontalInput;
     float verticalInput;
 
@@ -57,10 +58,18 @@ public class PlayerMovement : MonoBehaviour
 
         readyToJump = true;
         isSprinting = false;
+        canMove = true;
+
+        activeGrapple = false;
     }
 
     private void Update()
     {
+        if(canMove == false)
+        {
+            rb.velocity = Vector3.zero;
+        }
+
         // ground check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
 
@@ -68,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
         SpeedControl();
 
         // handle drag
-        if (grounded)
+        if (grounded && !activeGrapple)
             rb.drag = groundDrag;
         else
             rb.drag = 0;
@@ -76,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        MovePlayer();
+            MovePlayer();
     }
 
     private void MyInput()
@@ -106,6 +115,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer()
     {
+        if (activeGrapple)
+        {
+            animator.SetBool(_animIDFreeFall, true);
+            return;
+        }
+
         float targetSpeed = isSprinting ? sprintSpeed : walkSpeed;
         Vector2 moveInput = new Vector2(horizontalInput, verticalInput);
 
@@ -130,7 +145,7 @@ public class PlayerMovement : MonoBehaviour
         }
             
         // in air
-        else if (!grounded)
+        else if (!grounded )
         {
             animator.SetBool(_animIDFreeFall, true);
 
@@ -147,6 +162,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void SpeedControl()
     {
+        if (activeGrapple) return;
+
         float targetSpeed = isSprinting ? sprintSpeed : walkSpeed;
 
         Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
@@ -171,6 +188,52 @@ public class PlayerMovement : MonoBehaviour
     private void ResetJump()
     {
         readyToJump = true;
+    }
+
+    private bool enableMovementOnNextTouch;
+
+    public void JumpToPosition(Vector3 targetPosition, float trajectoryHeight)
+    {
+        activeGrapple = true;
+
+        velocityToSet = CalculateJumpVelocity(transform.position, targetPosition, trajectoryHeight);
+        Invoke(nameof(SetVelocity), 0.1f);
+    }
+
+    private Vector3 velocityToSet;
+    private void SetVelocity()
+    {
+        enableMovementOnNextTouch = true;
+        rb.velocity = velocityToSet;
+    }
+
+    public void ResetRestrictions()
+    {
+        activeGrapple = false;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (enableMovementOnNextTouch)
+        {
+            enableMovementOnNextTouch = false;
+            ResetRestrictions();
+
+            GetComponent<Grappling>().StopGrapple();
+        }
+    }
+
+    public Vector3 CalculateJumpVelocity (Vector3 startPoint, Vector3 endPoint, float trajectoryHeight)
+    {
+        float gravity = Physics.gravity.y;
+        float displacementY = endPoint.y - startPoint.y;
+        Vector3 displacementXZ = new Vector3(endPoint.x - startPoint.x, 0f, endPoint.z - startPoint.z);
+
+        Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2 * gravity * trajectoryHeight);
+        Vector3 velocityXZ = displacementXZ / (Mathf.Sqrt(-2 * trajectoryHeight / gravity)
+            + Mathf.Sqrt(2 * (displacementY - trajectoryHeight) / gravity));
+
+        return velocityXZ + velocityY;
     }
 
     private void AssignAnimationIDs()
