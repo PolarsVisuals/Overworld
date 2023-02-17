@@ -7,18 +7,24 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     public float walkSpeed;
     public float sprintSpeed;
-
-    bool isSprinting;
-    public bool canMove;
-
     public float groundDrag;
+
+    public bool isSprinting;
+    public bool canMove;
+    
+    float horizontalInput;
+    float verticalInput;
+    Vector3 moveDirection;
+    Rigidbody rb;
 
     [Header("Jumping")]
     public float jumpForce;
     public float jumpCooldown;
     public float airMultiplier;
-    bool readyToJump;
 
+    public bool canJump;
+
+    [Header("Grapple")]
     bool activeGrapple;
 
     [Header("Ground Check")]
@@ -30,24 +36,16 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Animation")]
     public Animator animator;
-
     public float SpeedChangeRate = 10.0f;
 
-    private float _animationBlend;
+    private float animationBlend;
 
     // animation IDs
-    private int _animIDSpeed;
-    private int _animIDGrounded;
-    private int _animIDJump;
-    private int _animIDFreeFall;
-    private int _animIDMotionSpeed;
-
-    float horizontalInput;
-    float verticalInput;
-
-    Vector3 moveDirection;
-
-    Rigidbody rb;
+    private int animIDSpeed;
+    private int animIDGrounded;
+    private int animIDJump;
+    private int animIDFreeFall;
+    private int animIDMotionSpeed;
 
     private void Start()
     {
@@ -56,10 +54,9 @@ public class PlayerMovement : MonoBehaviour
 
         AssignAnimationIDs();
 
-        readyToJump = true;
+        canJump = true;
         isSprinting = false;
         canMove = true;
-
         activeGrapple = false;
     }
 
@@ -72,6 +69,8 @@ public class PlayerMovement : MonoBehaviour
 
         // ground check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
+        animator.SetBool(animIDGrounded, grounded);
+
 
         MyInput();
         SpeedControl();
@@ -85,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-            MovePlayer();
+        MovePlayer();
     }
 
     private void MyInput()
@@ -94,9 +93,9 @@ public class PlayerMovement : MonoBehaviour
         verticalInput = Input.GetAxisRaw("Vertical");
 
         // when to jump
-        if (Input.GetButtonDown("Jump") && readyToJump && grounded)
+        if (Input.GetButtonDown("Jump") && canJump && grounded)
         {
-            readyToJump = false;
+            canJump = false;
 
             Jump();
 
@@ -117,7 +116,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (activeGrapple)
         {
-            animator.SetBool(_animIDFreeFall, true);
+            animator.SetBool(animIDFreeFall, true);
             return;
         }
 
@@ -132,31 +131,29 @@ public class PlayerMovement : MonoBehaviour
             targetSpeed = 0.0f;
         }
 
-        _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
-        if (_animationBlend < 0.01f) _animationBlend = 0f;
+        animationBlend = Mathf.Lerp(animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
+        if (animationBlend < 0.01f) animationBlend = 0f;
 
         // on ground
         if (grounded)
         {
-            animator.SetBool(_animIDJump, false);
-            animator.SetBool(_animIDFreeFall, false);
+            animator.SetBool(animIDJump, false);
+            animator.SetBool(animIDFreeFall, false);
 
             rb.AddForce(moveDirection.normalized * targetSpeed * 10f, ForceMode.Force);
         }
             
         // in air
-        else if (!grounded )
+        else if (!grounded)
         {
-            animator.SetBool(_animIDFreeFall, true);
+            animator.SetBool(animIDFreeFall, true);
 
             rb.AddForce(moveDirection.normalized * targetSpeed * 10f * airMultiplier, ForceMode.Force);
         }            
 
         //Set Animation
-        animator.SetBool(_animIDGrounded, grounded);
-
-        animator.SetFloat(_animIDSpeed, _animationBlend);
-        animator.SetFloat(_animIDMotionSpeed, 1);
+        animator.SetFloat(animIDSpeed, animationBlend);
+        animator.SetFloat(animIDMotionSpeed, 1);
 
     }
 
@@ -183,11 +180,11 @@ public class PlayerMovement : MonoBehaviour
 
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
 
-        animator.SetBool(_animIDJump, true);
+        animator.SetBool(animIDJump, true);
     }
     private void ResetJump()
     {
-        readyToJump = true;
+        canJump = true;
     }
 
     private bool enableMovementOnNextTouch;
@@ -238,10 +235,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void AssignAnimationIDs()
     {
-        _animIDSpeed = Animator.StringToHash("Speed");
-        _animIDGrounded = Animator.StringToHash("Grounded");
-        _animIDJump = Animator.StringToHash("Jump");
-        _animIDFreeFall = Animator.StringToHash("FreeFall");
-        _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
+        animIDSpeed = Animator.StringToHash("Speed");
+        animIDGrounded = Animator.StringToHash("Grounded");
+        animIDJump = Animator.StringToHash("Jump");
+        animIDFreeFall = Animator.StringToHash("FreeFall");
+        animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
     }
 }

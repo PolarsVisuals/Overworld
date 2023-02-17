@@ -90,8 +90,6 @@ public class Grappling : MonoBehaviour
         pm.JumpToPosition(grapplePoint, highestPointOnArc);
 
         Invoke(nameof(StopGrapple), 1f);
-
-        Debug.Log("vegeg");
     }
 
     public void StopGrapple()

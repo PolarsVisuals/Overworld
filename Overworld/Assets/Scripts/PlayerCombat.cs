@@ -4,24 +4,21 @@ using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour
 {
-    [SerializeField] float timePassed;
-    float clipLength;
-    float clipSpeed;
+    public Animator animator;
+
+    public int comboCount = 0;
+    public bool isAttacking;
+    public float attackTimer = 0f;
+    public float maxComboTime = 1f;
 
     [SerializeField] GameObject weapon;
     [SerializeField] GameObject weaponHolder;
 
     public GameObject currentWeaponInHand;
 
-    public Animator animator;
-
-    private bool isAttacking;
-    [SerializeField] float attackDelay;
-
     private void Awake()
     {
         isAttacking = false;
-        attackDelay = 0;
     }
 
     private void Start()
@@ -31,53 +28,59 @@ public class PlayerCombat : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Attack") && GetComponent<PlayerMovement>().grounded == true && timePassed >= attackDelay)
+        if (Input.GetButtonDown("Attack") && GetComponent<PlayerMovement>().grounded == true)
         {
-            GetComponent<PlayerMovement>().canMove = false;
-            //GetComponent<ThirdPersonController>().canJump = false;
-            
-            InitiateAttack();
-        }
-
-        if (Input.GetButtonDown("Grapple") && isAttacking == false)
-        {
-            Debug.Log("Used Grapple");
+            if (!isAttacking)
+            {
+                GetComponent<PlayerMovement>().canMove = false;
+                GetComponent<PlayerMovement>().canJump = false;
+                StartAttack();
+            }
+            else
+            {
+                ContinueCombo();
+            }
         }
 
         if (isAttacking)
         {
-            timePassed += Time.deltaTime;
-
-            //Returns an error as it gets the default state first, but doesnt affect anything
-            AnimatorClipInfo[] currentAnimClipInfo = animator.GetCurrentAnimatorClipInfo(1);
-            //Access the current length of the clip
-            clipLength = currentAnimClipInfo[0].clip.length;
-
-            clipSpeed = animator.GetCurrentAnimatorStateInfo(1).speed;
-
-            if(timePassed >= attackDelay && Input.GetButtonDown("Attack"))
+            attackTimer += Time.deltaTime;
+            if (attackTimer >= maxComboTime)
             {
-                animator.SetTrigger("attack");
-            }
-            if(timePassed >= clipLength / clipSpeed)
-            {
-                animator.applyRootMotion = false;
-                animator.SetTrigger("canMove");
-                GetComponent<PlayerMovement>().canMove = true;
-                //GetComponent<ThirdPersonController>().canJump = true;
-                isAttacking = false;
+                EndAttack();
             }
         }
     }
 
-    public void InitiateAttack()
+    private void StartAttack()
     {
-        animator.applyRootMotion = true;
-        timePassed = 0f;
-        animator.SetTrigger("attack");
-        animator.SetFloat("Speed", 0f);
-
         isAttacking = true;
-        attackDelay = 0.5f;
+        comboCount = 1;
+        attackTimer = 0f;
+        animator.SetTrigger("attack1");
+    }
+
+    private void ContinueCombo()
+    {
+        comboCount++;
+        attackTimer = 0f;
+        if (comboCount == 2)
+        {
+            animator.SetTrigger("attack2");
+        }
+        else if (comboCount == 3)
+        {
+            animator.SetTrigger("attack3");
+        }
+    }
+
+    private void EndAttack()
+    {
+        GetComponent<PlayerMovement>().canMove = true;
+        GetComponent<PlayerMovement>().canJump = true;
+
+        isAttacking = false;
+        comboCount = 0;
+        attackTimer = 0f;
     }
 }

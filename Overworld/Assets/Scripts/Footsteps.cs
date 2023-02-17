@@ -37,11 +37,11 @@ public class Footsteps : MonoBehaviour
 
     public void StartDealDamage()
     {
-        currentWeaponInHand.GetComponentInChildren<DamageDealer>().StartDealDamage();
+        //currentWeaponInHand.GetComponentInChildren<DamageDealer>().StartDealDamage();
     }
 
     public void EndDealDamage()
     {
-        currentWeaponInHand.GetComponentInChildren<DamageDealer>().EndDealDamage();
+        //currentWeaponInHand.GetComponentInChildren<DamageDealer>().EndDealDamage();
     }
 }
