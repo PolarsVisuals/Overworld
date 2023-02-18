@@ -191,7 +191,6 @@ Transform:
   - {fileID: 7710481715853534329}
   - {fileID: 7710481715231085718}
   - {fileID: 7710481715632225474}
-  - {fileID: 7710481716278858044}
   m_Father: {fileID: 7710481715208074356}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -522,7 +521,7 @@ MonoBehaviour:
   isSprinting: 0
   canMove: 0
   jumpForce: 8
-  jumpCooldown: 0.25
+  jumpCooldown: 1
   airMultiplier: 0.4
   canJump: 0
   playerHeight: 2
@@ -545,12 +544,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3febbddf070fa8e489c61065605f2ada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timePassed: 0
+  animator: {fileID: 7710481715800506200}
+  comboCount: 0
+  isAttacking: 0
+  attackTimer: 0
+  maxComboTime: 1
   weapon: {fileID: 5232661316363729149, guid: 168205d3a92419741a36fdabc5319d21, type: 3}
   weaponHolder: {fileID: 7710481716762346771}
   currentWeaponInHand: {fileID: 0}
-  animator: {fileID: 7710481715800506200}
-  attackDelay: 0
 --- !u!114 &7710481714877062734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -569,7 +570,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 247
   lr: {fileID: 7710481716278858043}
-  maxGrappleDistance: 25
+  debug: {fileID: 0}
+  maxGrappleDistance: 30
   grappleDelayTime: 0.25
   overshootYAxis: 2
   grapplingCd: 1
@@ -1733,7 +1735,7 @@ GameObject:
   - component: {fileID: 7710481715800506183}
   m_Layer: 8
   m_Name: GFX
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1746,7 +1748,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7710481715800506203}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.0066, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2105,6 +2107,7 @@ Transform:
   - {fileID: 7710481715620413355}
   - {fileID: 7710481716205331254}
   - {fileID: 7710481716762346770}
+  - {fileID: 7710481716278858044}
   m_Father: {fileID: 7710481716637861509}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2232,8 +2235,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7710481714754733004}
-  m_RootOrder: 5
+  m_Father: {fileID: 7710481716139958268}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!120 &7710481716278858043
 LineRenderer:

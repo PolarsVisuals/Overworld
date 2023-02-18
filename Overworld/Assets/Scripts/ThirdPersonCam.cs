@@ -7,6 +7,7 @@ public class ThirdPersonCam : MonoBehaviour
 {
     [Header("References")]
     public float rotationSpeed;
+    public Grappling grappleScript;
 
     public Transform orientation;
     public Transform player;

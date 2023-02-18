@@ -10,6 +10,7 @@ public class Grappling : MonoBehaviour
     public Transform gunTip;
     public LayerMask whatIsGrappable;
     public LineRenderer lr;
+    public GameObject debug;
 
     [Header("Grappling")]
     public float maxGrappleDistance;
@@ -49,6 +50,17 @@ public class Grappling : MonoBehaviour
         {
             lr.SetPosition(0, gunTip.position);
         }
+
+        RaycastHit hit;
+        if (Physics.Raycast(cam.position, cam.forward, out hit, maxGrappleDistance, whatIsGrappable))
+        {
+            debug.SetActive(true);
+        }
+        else
+        {
+            debug.SetActive(false);
+        }
+
     }
 
     private void StartGrapple()
@@ -57,6 +69,8 @@ public class Grappling : MonoBehaviour
 
         grappling = true;
         pm.canMove = false;
+
+        anim.SetTrigger("Grapple");
 
         RaycastHit hit;
         if(Physics.Raycast(cam.position, cam.forward,out hit, maxGrappleDistance, whatIsGrappable))
