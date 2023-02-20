@@ -19,6 +19,9 @@ public class Grappling : MonoBehaviour
 
     private Vector3 grapplePoint;
 
+    [Header("Hooking")]
+    public float pullForce = 10f;
+
     [Header("Cooldown")]
     public float grapplingCd;
     private float grapplingCdTimer;
@@ -36,7 +39,10 @@ public class Grappling : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(grappleKey)) StartGrapple();
+        if (Input.GetButtonDown("Grapple"))
+        {
+            StartGrapple();
+        }
 
         if(grapplingCdTimer > 0)
         {
@@ -72,13 +78,25 @@ public class Grappling : MonoBehaviour
 
         anim.SetTrigger("Grapple");
 
+        Ray ray = new Ray(cam.position, cam.forward);
         RaycastHit hit;
-        if(Physics.Raycast(cam.position, cam.forward,out hit, maxGrappleDistance, whatIsGrappable))
+
+        //If the player hit something
+        if(Physics.Raycast(ray, out hit, maxGrappleDistance, whatIsGrappable))
         {
             grapplePoint = hit.point;
 
-            Invoke(nameof(ExecuteGrapple), grappleDelayTime);
+            if (hit.transform.GetComponent<Rigidbody>() != null)
+            {
+                hit.transform.position = gunTip.position;
+                Invoke(nameof(StopGrapple), grappleDelayTime);
+            }
+            else
+            {
+                Invoke(nameof(ExecuteGrapple), grappleDelayTime);
+            }
         }
+        //If the player hits nothing
         else
         {
             grapplePoint = cam.position + cam.forward * maxGrappleDistance;
