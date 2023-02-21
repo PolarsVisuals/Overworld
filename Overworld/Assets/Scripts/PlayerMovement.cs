@@ -28,9 +28,12 @@ public class PlayerMovement : MonoBehaviour
     bool activeGrapple;
 
     [Header("Ground Check")]
-    public float playerHeight;
     public LayerMask whatIsGround;
     public bool grounded;
+    [Tooltip("Useful for rough ground")]
+    public float GroundedOffset = -0.14f;
+    [Tooltip("The radius of the grounded check. Should match the radius of the CharacterController")]
+    public float GroundedRadius = 0.28f;
 
     public Transform orientation;
 
@@ -67,11 +70,7 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = Vector3.zero;
         }
 
-        // ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
-        animator.SetBool(animIDGrounded, grounded);
-
-
+        GroundedCheck();
         MyInput();
         SpeedControl();
 
@@ -85,6 +84,17 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         MovePlayer();
+    }
+
+    private void GroundedCheck()
+    {
+        // set sphere position, with offset
+        Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset,
+            transform.position.z);
+        grounded = Physics.CheckSphere(spherePosition, GroundedRadius, whatIsGround,
+            QueryTriggerInteraction.Ignore);
+
+        animator.SetBool(animIDGrounded, grounded);
     }
 
     private void MyInput()
@@ -240,5 +250,19 @@ public class PlayerMovement : MonoBehaviour
         animIDJump = Animator.StringToHash("Jump");
         animIDFreeFall = Animator.StringToHash("FreeFall");
         animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Color transparentGreen = new Color(0.0f, 1.0f, 0.0f, 0.35f);
+        Color transparentRed = new Color(1.0f, 0.0f, 0.0f, 0.35f);
+
+        if (grounded) Gizmos.color = transparentGreen;
+        else Gizmos.color = transparentRed;
+
+        // when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
+        Gizmos.DrawSphere(
+            new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z),
+            GroundedRadius);
     }
 }

@@ -524,11 +524,12 @@ MonoBehaviour:
   jumpCooldown: 1
   airMultiplier: 0.4
   canJump: 0
-  playerHeight: 2
   whatIsGround:
     serializedVersion: 2
     m_Bits: 247
   grounded: 0
+  GroundedOffset: 0
+  GroundedRadius: 0.1
   orientation: {fileID: 7710481716361412811}
   animator: {fileID: 7710481715800506200}
   SpeedChangeRate: 10
@@ -572,9 +573,10 @@ MonoBehaviour:
   lr: {fileID: 7710481716278858043}
   debug: {fileID: 0}
   maxGrappleDistance: 30
-  grappleDelayTime: 0.25
+  grappleDelayTime: 0.5
   overshootYAxis: 2
   grapplingCd: 1
+  grapplingCdTimer: 0
   anim: {fileID: 7710481715800506200}
   grappleKey: 324
 --- !u!1 &7710481714988125017
@@ -2836,7 +2838,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7710481716762346771}
   m_LocalRotation: {x: -0.7037561, y: 0.06875585, z: 0.06875585, w: 0.7037561}
-  m_LocalPosition: {x: 0.033, y: -0.0821, z: 0.0511}
+  m_LocalPosition: {x: 0.0402, y: -0.0821, z: 0.0878}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

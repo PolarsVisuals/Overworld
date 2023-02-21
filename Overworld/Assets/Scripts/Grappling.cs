@@ -20,11 +20,12 @@ public class Grappling : MonoBehaviour
     private Vector3 grapplePoint;
 
     [Header("Hooking")]
-    public float pullForce = 10f;
+    Transform currentHookedObj;
+    bool isHooking;
 
     [Header("Cooldown")]
     public float grapplingCd;
-    private float grapplingCdTimer;
+    public float grapplingCdTimer;
 
     public Animator anim;
 
@@ -57,6 +58,11 @@ public class Grappling : MonoBehaviour
             lr.SetPosition(0, gunTip.position);
         }
 
+        if (isHooking)
+        {
+            lr.SetPosition(1, currentHookedObj.position);
+        }
+
         RaycastHit hit;
         if (Physics.Raycast(cam.position, cam.forward, out hit, maxGrappleDistance, whatIsGrappable))
         {
@@ -86,11 +92,13 @@ public class Grappling : MonoBehaviour
         {
             grapplePoint = hit.point;
 
+            //Hook
             if (hit.transform.GetComponent<Rigidbody>() != null)
             {
-                hit.transform.position = gunTip.position;
-                Invoke(nameof(StopGrapple), grappleDelayTime);
-            }
+                currentHookedObj = hit.transform;
+                Invoke(nameof(ExecuteHook), grappleDelayTime);
+            }           
+            //Grapple
             else
             {
                 Invoke(nameof(ExecuteGrapple), grappleDelayTime);
@@ -124,13 +132,49 @@ public class Grappling : MonoBehaviour
         Invoke(nameof(StopGrapple), 1f);
     }
 
+    private void ExecuteHook()
+    {
+        isHooking = true;
+
+        PullObjectWithRaycast(currentHookedObj, grapplePoint);
+
+        Invoke(nameof(StopGrapple), 1f);
+    }
+
     public void StopGrapple()
     {
         grappling = false;
+        isHooking = false;
+
         pm.canMove = true;
 
         grapplingCdTimer = grapplingCd;
 
         lr.enabled = false;
+    }
+
+    public void PullObjectWithRaycast(Transform hookedObj, Vector3 grapplePoint)
+    {
+        Vector3 heading = grapplePoint - gunTip.position; //startpoint
+        float distance = Vector3.Distance(gunTip.position, grapplePoint);
+        Vector3 direction = heading / distance;
+
+        Ray ray = new Ray(gunTip.position, direction * distance);
+        Debug.DrawRay(gunTip.position, direction * distance, Color.red, 5);
+
+        Rigidbody rb = currentHookedObj.GetComponent<Rigidbody>();
+
+        if (rb != null && !rb.isKinematic && rb.constraints == RigidbodyConstraints.None)
+        {
+            float force = distance;
+            Debug.Log("Distance: " + distance + ", Force: " + force);
+
+            rb.AddForce(ray.direction * -force, ForceMode.Impulse);
+
+            if (distance < 5f)
+            {
+                rb.velocity = Vector3.zero;
+            }
+        }
     }
 }
