@@ -33,7 +33,7 @@ public class Grappling : MonoBehaviour
 
     public KeyCode grappleKey = KeyCode.Mouse1;
 
-    private bool grappling;
+    public bool grappling;
 
     private void Start()
     {
@@ -66,7 +66,7 @@ public class Grappling : MonoBehaviour
         }
 
         RaycastHit hit;
-        if (Physics.Raycast(cam.position, cam.forward, out hit, maxGrappleDistance, whatIsGrappable))
+        if (Physics.Raycast(cam.position, cam.forward, out hit, maxGrappleDistance, whatIsGrappable) && grapplingCdTimer <= 0)
         {
             debug.SetActive(true);
         }

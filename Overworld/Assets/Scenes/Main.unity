@@ -5586,7 +5586,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7710481714877062720, guid: c30d578395d1628419f5a6298d277a09, type: 3}
       propertyPath: airMultiplier
-      value: 0.2
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 7710481714877062721, guid: c30d578395d1628419f5a6298d277a09, type: 3}
       propertyPath: m_RootOrder
