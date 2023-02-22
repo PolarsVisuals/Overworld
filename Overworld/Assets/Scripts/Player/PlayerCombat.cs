@@ -7,14 +7,20 @@ public class PlayerCombat : MonoBehaviour
     public Animator animator;
 
     public int comboCount = 0;
-    public bool isAttacking;
-    public float attackTimer = 0f;
+    public float comboDelay = 0.75f;
+
+    public float comboTimer = 0f;
     public float maxComboTime = 1f;
+
+    public bool isAttacking;
+    bool canAttack = true;
 
     [SerializeField] GameObject weapon;
     [SerializeField] GameObject weaponHolder;
 
     public GameObject currentWeaponInHand;
+
+    private PlayerMovement playerMovement;
 
     private void Awake()
     {
@@ -23,29 +29,32 @@ public class PlayerCombat : MonoBehaviour
 
     private void Start()
     {
+        playerMovement = GetComponent<PlayerMovement>();
+
         currentWeaponInHand = Instantiate(weapon, weaponHolder.transform);
     }
 
     private void Update()
     {
-        if (Input.GetButtonDown("Attack") && GetComponent<PlayerMovement>().grounded == true)
+        if (Input.GetButtonDown("Attack") && playerMovement.grounded && canAttack)
         {
             if (!isAttacking)
             {
-                GetComponent<PlayerMovement>().canMove = false;
-                GetComponent<PlayerMovement>().canJump = false;
                 StartAttack();
             }
             else
             {
-                ContinueCombo();
+                if (comboTimer >= comboDelay)
+                {
+                    ContinueCombo();
+                }
             }
         }
 
         if (isAttacking)
         {
-            attackTimer += Time.deltaTime;
-            if (attackTimer >= maxComboTime)
+            comboTimer += Time.deltaTime;
+            if (comboTimer >= maxComboTime)
             {
                 EndAttack();
             }
@@ -55,32 +64,51 @@ public class PlayerCombat : MonoBehaviour
     private void StartAttack()
     {
         isAttacking = true;
-        comboCount = 1;
-        attackTimer = 0f;
+
+        playerMovement.canMove = false;
+        playerMovement.canJump = false;
+
         animator.SetTrigger("attack1");
+
+        comboCount = 1;
+        comboTimer = 0;
     }
 
     private void ContinueCombo()
     {
-        comboCount++;
-        attackTimer = 0f;
-        if (comboCount == 2)
+        Debug.Log("Combo Registered");
+
+        if (comboCount == 1)
         {
             animator.SetTrigger("attack2");
+            comboCount++;
+            comboTimer = 0f;
         }
-        else if (comboCount == 3)
+
+        else if (comboCount == 2)
         {
             animator.SetTrigger("attack3");
+            comboCount++;
+            comboTimer = 0f;
         }
     }
 
     private void EndAttack()
     {
-        GetComponent<PlayerMovement>().canMove = true;
-        GetComponent<PlayerMovement>().canJump = true;
-
         isAttacking = false;
+        StartCoroutine(AttackCooldown());
+
+        playerMovement.canMove = true;
+        playerMovement.canJump = true;
+
         comboCount = 0;
-        attackTimer = 0f;
+        comboTimer = 0f;
+    }
+
+    IEnumerator AttackCooldown()
+    {
+        canAttack = false;
+        yield return new WaitForSeconds(1);
+        canAttack = true;
     }
 }

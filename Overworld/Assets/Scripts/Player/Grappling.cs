@@ -18,10 +18,12 @@ public class Grappling : MonoBehaviour
     public float overshootYAxis;
 
     private Vector3 grapplePoint;
+    public Vector3 grapplePointOffset;
+    private Vector3 grappleLinePoint;
 
     [Header("Hooking")]
     Transform currentHookedObj;
-    bool isHooking;
+    [SerializeField] bool isHooking;
 
     [Header("Cooldown")]
     public float grapplingCd;
@@ -40,12 +42,12 @@ public class Grappling : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Grapple"))
+        if (Input.GetButtonDown("Grapple") && !grappling)
         {
             StartGrapple();
         }
 
-        if(grapplingCdTimer > 0)
+        if (grapplingCdTimer > 0)
         {
             grapplingCdTimer -= Time.deltaTime;
         }
@@ -72,7 +74,6 @@ public class Grappling : MonoBehaviour
         {
             debug.SetActive(false);
         }
-
     }
 
     private void StartGrapple()
@@ -90,17 +91,20 @@ public class Grappling : MonoBehaviour
         //If the player hit something
         if(Physics.Raycast(ray, out hit, maxGrappleDistance, whatIsGrappable))
         {
-            grapplePoint = hit.point;
+            grappleLinePoint = hit.point;
 
             //Hook
             if (hit.transform.GetComponent<Rigidbody>() != null)
             {
                 currentHookedObj = hit.transform;
+
+                grapplePoint = hit.point;
                 Invoke(nameof(ExecuteHook), grappleDelayTime);
             }           
             //Grapple
             else
             {
+                grapplePoint = hit.point + grapplePointOffset;
                 Invoke(nameof(ExecuteGrapple), grappleDelayTime);
             }
         }
@@ -113,7 +117,7 @@ public class Grappling : MonoBehaviour
         }
 
         lr.enabled = true;
-        lr.SetPosition(1, grapplePoint);
+        lr.SetPosition(1, grappleLinePoint);
     }
 
     private void ExecuteGrapple()
@@ -136,7 +140,7 @@ public class Grappling : MonoBehaviour
     {
         isHooking = true;
 
-        PullObjectWithRaycast(currentHookedObj, grapplePoint);
+        GrabObjectWithRaycast(currentHookedObj, grapplePoint);
 
         Invoke(nameof(StopGrapple), 1f);
     }
@@ -153,7 +157,7 @@ public class Grappling : MonoBehaviour
         lr.enabled = false;
     }
 
-    public void PullObjectWithRaycast(Transform hookedObj, Vector3 grapplePoint)
+    public void GrabObjectWithRaycast(Transform hookedObj, Vector3 grapplePoint)
     {
         Vector3 heading = grapplePoint - gunTip.position; //startpoint
         float distance = Vector3.Distance(gunTip.position, grapplePoint);

@@ -65,13 +65,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if(canMove == false)
+        if(!canMove)
         {
             rb.velocity = Vector3.zero;
         }
 
-        GroundedCheck();
         MyInput();
+        GroundedCheck();
         SpeedControl();
 
         // handle drag
@@ -136,7 +136,7 @@ public class PlayerMovement : MonoBehaviour
         // calculate movement direction
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
-        if (moveInput == Vector2.zero)
+        if (moveInput == Vector2.zero || canMove == false)
         {
             targetSpeed = 0.0f;
         }

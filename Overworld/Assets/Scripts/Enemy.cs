@@ -59,16 +59,6 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void StartDealDamage()
-    {
-        GetComponentInChildren<EnemyDamageDealer>().StartDealDamage();
-    }
-
-    public void EndDealDamage()
-    {
-        GetComponentInChildren<EnemyDamageDealer>().EndDealDamage();
-    }
-
     void Die()
     {
         Destroy(gameObject);
