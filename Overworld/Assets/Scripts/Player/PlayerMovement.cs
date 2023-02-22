@@ -127,7 +127,6 @@ public class PlayerMovement : MonoBehaviour
         if (activeGrapple)
         {
             animator.SetBool(animIDFreeFall, true);
-            return;
         }
 
         float targetSpeed = isSprinting ? sprintSpeed : walkSpeed;
