@@ -4928,7 +4928,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1652394749
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5586,7 +5586,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7710481714877062720, guid: c30d578395d1628419f5a6298d277a09, type: 3}
       propertyPath: airMultiplier
-      value: 0.4
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7710481714877062721, guid: c30d578395d1628419f5a6298d277a09, type: 3}
       propertyPath: m_RootOrder
@@ -5670,7 +5670,7 @@ PrefabInstance:
       objectReference: {fileID: 1285592815}
     - target: {fileID: 7710481714877062734, guid: c30d578395d1628419f5a6298d277a09, type: 3}
       propertyPath: grapplingCd
-      value: 10
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7710481714877062734, guid: c30d578395d1628419f5a6298d277a09, type: 3}
       propertyPath: overshootYAxis
@@ -5690,7 +5690,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7710481714877062735, guid: c30d578395d1628419f5a6298d277a09, type: 3}
       propertyPath: comboDelay
-      value: 0.5
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 7710481714877062735, guid: c30d578395d1628419f5a6298d277a09, type: 3}
       propertyPath: maxComboTime

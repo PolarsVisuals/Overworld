@@ -63,6 +63,6 @@ public class HudDebug : MonoBehaviour
 
         grappleCooldown.text = "Grapple Cooldown: " + grapplingScript.grapplingCdTimer;
 
-        attackTimer.text = "Attack Timer: " + pcScript.comboTimer;
+        //attackTimer.text = "Attack Timer: " + pcScript.comboTimer;
     }
 }

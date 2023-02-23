@@ -4,27 +4,24 @@ using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour
 {
-    public Animator animator;
-
-    public int comboCount = 0;
-    public float comboDelay = 0.75f;
-
-    public float comboTimer = 0f;
-    public float maxComboTime = 1f;
-
-    public bool isAttacking;
-    bool canAttack = true;
-
+    [Header("References")]
+    [SerializeField] Animator animator;
     [SerializeField] GameObject weapon;
     [SerializeField] GameObject weaponHolder;
 
-    public GameObject currentWeaponInHand;
+    [Header("Attacking")]
+    [SerializeField] float comboCount;
 
+    bool canAttack;
+    bool isAttacking;
+ 
+    private GameObject currentWeaponInHand;
     private PlayerMovement playerMovement;
 
     private void Awake()
     {
         isAttacking = false;
+        canAttack = true;
     }
 
     private void Start()
@@ -38,25 +35,15 @@ public class PlayerCombat : MonoBehaviour
     {
         if (Input.GetButtonDown("Attack") && playerMovement.grounded && canAttack)
         {
-            if (!isAttacking)
+            canAttack = false;
+
+            if (isAttacking)
             {
-                StartAttack();
+                ExecuteCombo();
             }
             else
             {
-                if (comboTimer >= comboDelay)
-                {
-                    ContinueCombo();
-                }
-            }
-        }
-
-        if (isAttacking)
-        {
-            comboTimer += Time.deltaTime;
-            if (comboTimer >= maxComboTime)
-            {
-                EndAttack();
+                StartAttack();
             }
         }
     }
@@ -71,38 +58,35 @@ public class PlayerCombat : MonoBehaviour
         animator.SetTrigger("attack1");
 
         comboCount = 1;
-        comboTimer = 0;
     }
 
-    private void ContinueCombo()
+    public void InitiateCombo()
     {
-        Debug.Log("Combo Registered");
+        canAttack = true;
+    }
 
-        if (comboCount == 1)
+    public void ExecuteCombo()
+    {
+        if(comboCount == 1)
         {
             animator.SetTrigger("attack2");
-            comboCount++;
-            comboTimer = 0f;
         }
-
         else if (comboCount == 2)
         {
             animator.SetTrigger("attack3");
-            comboCount++;
-            comboTimer = 0f;
         }
+
+        comboCount++;
     }
 
-    private void EndAttack()
+    public void EndAttack()
     {
+        Debug.Log("Ended");
         isAttacking = false;
         StartCoroutine(AttackCooldown());
 
         playerMovement.canMove = true;
         playerMovement.canJump = true;
-
-        comboCount = 0;
-        comboTimer = 0f;
     }
 
     IEnumerator AttackCooldown()

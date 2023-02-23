@@ -47,7 +47,7 @@ public class ThirdPersonCam : MonoBehaviour
 
         if (player.GetComponent<Grappling>().grappling)
         {
-            playerObj.forward = orientation.forward;
+            playerObj.forward = Vector3.Slerp(playerObj.forward, orientation.forward, Time.deltaTime * rotationSpeed);
         }
         else
         {

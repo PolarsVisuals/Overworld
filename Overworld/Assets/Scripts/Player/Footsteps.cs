@@ -4,16 +4,21 @@ using UnityEngine;
 
 public class Footsteps : MonoBehaviour
 {
-    GameObject currentWeaponInHand;
-
     public AudioClip LandingAudioClip;
     public AudioClip[] FootstepAudioClips;
     [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
 
+    PlayerCombat playerCombat;
+
     private void Start()
     {
-        currentWeaponInHand = GetComponentInParent<PlayerCombat>().currentWeaponInHand;
+        playerCombat = GetComponentInParent<PlayerCombat>();
+        if(playerCombat == null)
+        {
+            Debug.Log("Cant find");
+        }
     }
+
 
     private void OnFootstep(AnimationEvent animationEvent)
     {
@@ -35,13 +40,13 @@ public class Footsteps : MonoBehaviour
         }
     }
 
-    public void StartDealDamage()
+    private void ReadyToCombo()
     {
-        //currentWeaponInHand.GetComponentInChildren<DamageDealer>().StartDealDamage();
+        playerCombat.InitiateCombo();
     }
 
-    public void EndDealDamage()
+    private void EndAttack()
     {
-        //currentWeaponInHand.GetComponentInChildren<DamageDealer>().EndDealDamage();
+        playerCombat.EndAttack();
     }
 }
