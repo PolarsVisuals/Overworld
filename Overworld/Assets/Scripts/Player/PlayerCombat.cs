@@ -54,6 +54,11 @@ public class PlayerCombat : MonoBehaviour
                 {
                     playerMovement.SnapToPosition(targetedEnemy.position);
                 }
+                else
+                {
+                    ThirdPersonCam cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ThirdPersonCam>();
+                    cam.LookAtTarget(targetedEnemy.position);
+                }
             }
 
             if (isAttacking)
@@ -122,10 +127,10 @@ public class PlayerCombat : MonoBehaviour
 
         //Makes a list of all enemies in the level
         List<GameObject> enemyList = GameObject.Find("Spawner").GetComponent<Spawner>().enemies;
-        if(enemyList == null)
+        if(enemyList.Count == 0)
         {
             Debug.Log("No enemies found");
-            return null;
+            return transform;
         }
 
         foreach(GameObject enemy in enemyList)
