@@ -45,10 +45,17 @@ public class ThirdPersonCam : MonoBehaviour
         //Rotate player object
         Vector3 inputDir = orientation.forward * v + orientation.right * h;
 
+        if (player.GetComponent<PlayerMovement>().isSnapping)
+        {
+            LookAtTarget(player.GetComponent<PlayerMovement>().targetPos);
+            return;
+        }
+        //Looks at grapple position
         if (player.GetComponent<Grappling>().grappling)
         {
             playerObj.forward = Vector3.Slerp(playerObj.forward, orientation.forward, Time.deltaTime * rotationSpeed);
         }
+        //Looks at input direction
         else
         {
             if (inputDir != Vector3.zero)
@@ -56,6 +63,11 @@ public class ThirdPersonCam : MonoBehaviour
                 playerObj.forward = Vector3.Slerp(playerObj.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
             }
         }
+    }
+
+    public void LookAtTarget(Vector3 pos)
+    {
+        playerObj.LookAt(pos);
     }
 
     private void LateUpdate()

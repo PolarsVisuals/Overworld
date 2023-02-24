@@ -546,13 +546,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 7710481715800506200}
-  comboCount: 0
-  isAttacking: 0
-  attackTimer: 0
-  maxComboTime: 1
   weapon: {fileID: 5232661316363729149, guid: 168205d3a92419741a36fdabc5319d21, type: 3}
   weaponHolder: {fileID: 7710481716762346771}
-  currentWeaponInHand: {fileID: 0}
+  comboCount: 0
 --- !u!114 &7710481714877062734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -575,10 +571,13 @@ MonoBehaviour:
   maxGrappleDistance: 30
   grappleDelayTime: 0.5
   overshootYAxis: 2
+  grapplePointOffset: {x: 0, y: 0, z: 0}
+  isHooking: 0
   grapplingCd: 1
   grapplingCdTimer: 0
   anim: {fileID: 7710481715800506200}
   grappleKey: 324
+  grappling: 0
 --- !u!1 &7710481714988125017
 GameObject:
   m_ObjectHideFlags: 0

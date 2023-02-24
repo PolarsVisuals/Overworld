@@ -6,37 +6,31 @@ public class Spawner : MonoBehaviour
 {
     public Transform[] spawnPoints;
     public float spawnTime = 2f;
-
-    public GameObject lightening;
-    public GameObject beam;
     public GameObject skelly;
 
     public List<GameObject> enemies = new List<GameObject>();
 
     private void Start()
     {
-        InvokeRepeating("Spawn", spawnTime, spawnTime);
+        InvokeRepeating("Spawn", 1, spawnTime);
     }
 
     void Spawn()
     {
         int spawnPointIndex = Random.Range(0, spawnPoints.Length);
 
-        Instantiate(lightening, spawnPoints[spawnPointIndex]);
-        Instantiate(beam, spawnPoints[spawnPointIndex]);
+        GameObject enemy = Instantiate(skelly, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
 
-        GameObject enemy = Instantiate(skelly, spawnPoints[spawnPointIndex]);
-
-        enemies.Add(skelly);
+        enemies.Add(enemy);
     }
 
     private void Update()
     {
-        foreach(GameObject skelly in enemies)
+        foreach(GameObject enemy in enemies)
         {
-            if(skelly == null)
+            if(enemy == null)
             {
-                enemies.Remove(skelly);
+                enemies.Remove(enemy);
             }
         }
     }

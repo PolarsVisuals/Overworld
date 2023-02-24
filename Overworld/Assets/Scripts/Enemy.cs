@@ -5,18 +5,16 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] float health = 3;
+    [Header("References")]
+    Animator animator;
+    NavMeshAgent agent;
+    GameObject player;
 
     [Header("Combat")]
     [SerializeField] float attackCD = 3f;
     [SerializeField] float attackRange = 1f;
     [SerializeField] float aggroRange = 4f;
 
-    GameObject player;
-    PlayerCombat playerCombatScript;
-
-    Animator animator;
-    NavMeshAgent agent;
     float timePassed;
 
     private void Start()
@@ -48,20 +46,12 @@ public class Enemy : MonoBehaviour
 
     }
 
-    public void TakeDamage(float amount)
+    private void OnTriggerEnter(Collider other)
     {
-        health -= amount;
-        animator.SetTrigger("damage");
-
-        if (health <= 0)
+        if (other.CompareTag("Weapon"))
         {
-            Die();
+            Destroy(gameObject);
         }
-    }
-
-    void Die()
-    {
-        Destroy(gameObject);
     }
 
     private void OnDrawGizmos()

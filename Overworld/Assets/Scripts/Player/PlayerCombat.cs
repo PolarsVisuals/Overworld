@@ -11,12 +11,18 @@ public class PlayerCombat : MonoBehaviour
 
     [Header("Attacking")]
     [SerializeField] float comboCount;
+    [SerializeField] float attackCooldown;
+
+    [SerializeField] float snapRange;
 
     bool canAttack;
     bool isAttacking;
  
     private GameObject currentWeaponInHand;
     private PlayerMovement playerMovement;
+
+    [SerializeField] List<Transform> enemies = new List<Transform>();
+    [SerializeField] Transform targetedEnemy;
 
     private void Awake()
     {
@@ -33,9 +39,22 @@ public class PlayerCombat : MonoBehaviour
 
     private void Update()
     {
+        targetedEnemy = GetClosestEnemy();
+
+        float distFromEnemy = Vector3.Distance(transform.position, targetedEnemy.position);
+        Debug.DrawLine(transform.position, targetedEnemy.position, Color.blue);
+
         if (Input.GetButtonDown("Attack") && playerMovement.grounded && canAttack)
         {
             canAttack = false;
+
+            if(distFromEnemy <= snapRange)
+            {
+                if(distFromEnemy >= 2)
+                {
+                    playerMovement.SnapToPosition(targetedEnemy.position);
+                }
+            }
 
             if (isAttacking)
             {
@@ -53,7 +72,7 @@ public class PlayerCombat : MonoBehaviour
         isAttacking = true;
 
         playerMovement.canMove = false;
-        playerMovement.canJump = false;
+        playerMovement.canJump = false;  
 
         animator.SetTrigger("attack1");
 
@@ -92,7 +111,42 @@ public class PlayerCombat : MonoBehaviour
     IEnumerator AttackCooldown()
     {
         canAttack = false;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
+    }
+
+    Transform GetClosestEnemy()
+    {
+        //Clears the current list
+        enemies.Clear();
+
+        //Makes a list of all enemies in the level
+        List<GameObject> enemyList = GameObject.Find("Spawner").GetComponent<Spawner>().enemies;
+        if(enemyList == null)
+        {
+            Debug.Log("No enemies found");
+            return null;
+        }
+
+        foreach(GameObject enemy in enemyList)
+        {
+            enemies.Add(enemy.transform);
+        }
+
+        Transform closestTarget = null;
+        float closestDistanceSqr = Mathf.Infinity;
+        Vector3 currentPosition = transform.position;
+        foreach (Transform potentialTarget in enemies)
+        {
+            Vector3 directionToTarget = potentialTarget.position - currentPosition;
+            float dSqrToTarget = directionToTarget.sqrMagnitude;
+            if (dSqrToTarget < closestDistanceSqr)
+            {
+                closestDistanceSqr = dSqrToTarget;
+                closestTarget = potentialTarget;
+            }
+        }
+
+        return closestTarget;
     }
 }

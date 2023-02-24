@@ -11,6 +11,10 @@ public class PlayerMovement : MonoBehaviour
 
     public bool isSprinting;
     public bool canMove;
+
+    public float snapSpeed;
+    public bool isSnapping;
+    public Vector3 targetPos;
     
     float horizontalInput;
     float verticalInput;
@@ -61,6 +65,8 @@ public class PlayerMovement : MonoBehaviour
         isSprinting = false;
         canMove = true;
         activeGrapple = false;
+
+        isSnapping = false;
     }
 
     private void Update()
@@ -83,6 +89,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (isSnapping)
+        {
+            Snapping(targetPos);
+        }
+
         MovePlayer();
     }
 
@@ -204,6 +215,29 @@ public class PlayerMovement : MonoBehaviour
 
         velocityToSet = CalculateJumpVelocity(transform.position, targetPosition, trajectoryHeight);
         Invoke(nameof(SetVelocity), 0.1f);
+    }
+
+    public void SnapToPosition(Vector3 targetPosition)
+    {
+        ThirdPersonCam camScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ThirdPersonCam>();
+
+        camScript.playerObj.forward = targetPosition;
+
+        targetPos = targetPosition;
+
+        isSnapping = true;
+    }
+
+    void Snapping(Vector3 _targetPos)
+    {
+        // Move our position a step closer to the target.
+        transform.position = Vector3.MoveTowards(transform.position, _targetPos, 1);
+
+        // Check if the position of the cube and sphere are approximately equal.
+        if (Vector3.Distance(transform.position, _targetPos) < 2f)
+        {
+            isSnapping = false;
+        }
     }
 
     private Vector3 velocityToSet;
