@@ -12,7 +12,6 @@ public class PlayerMovement : MonoBehaviour
     public bool isSprinting;
     public bool canMove;
 
-    public float snapSpeed;
     public bool isSnapping;
     public Vector3 targetPos;
     
@@ -220,8 +219,6 @@ public class PlayerMovement : MonoBehaviour
     public void SnapToPosition(Vector3 targetPosition)
     {
         ThirdPersonCam camScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ThirdPersonCam>();
-
-        camScript.playerObj.forward = targetPosition;
 
         targetPos = targetPosition;
 

@@ -31,8 +31,6 @@ public class Grappling : MonoBehaviour
 
     public Animator anim;
 
-    public KeyCode grappleKey = KeyCode.Mouse1;
-
     public bool grappling;
 
     private void Start()

@@ -7,6 +7,7 @@ public class ThirdPersonCam : MonoBehaviour
 {
     [Header("References")]
     public float rotationSpeed;
+    public PlayerMovement pmScript;
     public Grappling grappleScript;
 
     public Transform orientation;
@@ -22,6 +23,9 @@ public class ThirdPersonCam : MonoBehaviour
 
     public GameObject CinemachineCameraTarget;
 
+    private float h;
+    private float v;
+
     private float cinemachineTargetYaw;
     private float cinemachineTargetPitch;
 
@@ -35,8 +39,16 @@ public class ThirdPersonCam : MonoBehaviour
 
     private void Update()
     {
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
+        if (pmScript.canMove == false)
+        {
+            h = 0;
+            v = 0;
+        }
+        else
+        {
+            h = Input.GetAxis("Horizontal");
+            v = Input.GetAxis("Vertical");
+        }
 
         //Rotate orientation
         Vector3 viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);

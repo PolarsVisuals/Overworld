@@ -105,7 +105,7 @@ public class PlayerCombat : MonoBehaviour
 
     public void EndAttack()
     {
-        Debug.Log("Ended");
+        //Debug.Log("Ended");
         isAttacking = false;
         StartCoroutine(AttackCooldown());
 

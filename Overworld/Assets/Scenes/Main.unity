@@ -3620,6 +3620,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1254503730}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1273810491 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7710481714877062720, guid: c30d578395d1628419f5a6298d277a09, type: 3}
+  m_PrefabInstance: {fileID: 1946024981}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60a8cff726598e84aa8b540fafde6c15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1285592815
 GameObject:
   m_ObjectHideFlags: 0
@@ -5941,7 +5952,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7710481714877062720, guid: c30d578395d1628419f5a6298d277a09, type: 3}
       propertyPath: airMultiplier
-      value: 0.1
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 7710481714877062720, guid: c30d578395d1628419f5a6298d277a09, type: 3}
       propertyPath: SpeedChangeRate
@@ -8224,6 +8235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 15
+  pmScript: {fileID: 1273810491}
   grappleScript: {fileID: 792308275}
   orientation: {fileID: 523461535}
   player: {fileID: 792308280}
