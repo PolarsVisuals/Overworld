@@ -6,13 +6,14 @@ public class Spawner : MonoBehaviour
 {
     public Transform[] spawnPoints;
     public float spawnTime = 2f;
+    public float spawnDelay = 2f;
     public GameObject skelly;
 
     public List<GameObject> enemies = new List<GameObject>();
 
     private void Start()
     {
-        InvokeRepeating("Spawn", 10, spawnTime);
+        InvokeRepeating("Spawn", spawnDelay, spawnTime);
     }
 
     void Spawn()

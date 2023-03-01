@@ -1,16 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Grappling : MonoBehaviour
 {
     [Header("References")]
     private PlayerMovement pm;
     public Transform cam;
-    public Transform gunTip;
+    public Transform grappleTip;
     public LayerMask whatIsGrappable;
     public LineRenderer lr;
-    public GameObject debug;
 
     [Header("Grappling")]
     public float maxGrappleDistance;
@@ -21,7 +21,10 @@ public class Grappling : MonoBehaviour
     public Vector3 grapplePointOffset;
     private Vector3 grappleLinePoint;
 
+    public bool grappling;
+
     [Header("Hooking")]
+    [SerializeField] float pullForce;
     Transform currentHookedObj;
     [SerializeField] bool isHooking;
 
@@ -29,33 +32,50 @@ public class Grappling : MonoBehaviour
     public float grapplingCd;
     public float grapplingCdTimer;
 
-    public Animator anim;
+    [Header("HUD")]
+    public Image grappleForeground;
+    public Image crosshair;
+    public Sprite[] sprite;
+    bool smoothing;
 
-    public bool grappling;
+    public Animator anim;
 
     private void Start()
     {
         pm = GetComponent<PlayerMovement>();
+        smoothing = false;
+        grapplingCdTimer = grapplingCd;
     }
 
     private void Update()
     {
         if (Input.GetButtonDown("Grapple") && !grappling)
         {
+            //Debug.Log("Pressed Grapple");
             StartGrapple();
         }
-
-        if (grapplingCdTimer > 0)
+        if(Input.GetButton("Grapple") && isHooking)
         {
-            grapplingCdTimer -= Time.deltaTime;
+            //Debug.Log("Pulling Object");
+            PullObjectWithRaycast(currentHookedObj);
+        }
+        if(Input.GetButtonUp("Grapple") && isHooking)
+        {
+            Invoke(nameof(StopGrapple), 0f);
+        }
+
+        if (grapplingCdTimer < grapplingCd)
+        {
+            grapplingCdTimer += Time.deltaTime;
         }
     }
 
     private void LateUpdate()
     {
+        //LineRenderer
         if (grappling)
         {
-            lr.SetPosition(0, gunTip.position);
+            lr.SetPosition(0, grappleTip.position);
         }
 
         if (isHooking)
@@ -63,20 +83,40 @@ public class Grappling : MonoBehaviour
             lr.SetPosition(1, currentHookedObj.position);
         }
 
-        RaycastHit hit;
-        if (Physics.Raycast(cam.position, cam.forward, out hit, maxGrappleDistance, whatIsGrappable) && grapplingCdTimer <= 0)
+        //HUD
+        if (smoothing)
         {
-            debug.SetActive(true);
+            float prevFill = grappleForeground.fillAmount;
+            float currFill = grapplingCdTimer / grapplingCd;
+            if (currFill > prevFill) prevFill = Mathf.Min(prevFill + 0.01f, currFill);
+            else if (currFill < prevFill) prevFill = Mathf.Max(prevFill - 0.01f, currFill);
+            grappleForeground.fillAmount = prevFill;
+        }
+
+        //Crosshair
+        Ray ray = new Ray(cam.position, cam.forward);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, maxGrappleDistance, whatIsGrappable))
+        {
+            if (hit.transform.GetComponent<Rigidbody>() == null)
+            {
+                crosshair.sprite = sprite[2];
+            }
+            else
+            {
+                crosshair.sprite = sprite[1];
+            }
         }
         else
         {
-            debug.SetActive(false);
+            crosshair.sprite = sprite[0];
         }
     }
 
     private void StartGrapple()
     {
-        if (grapplingCdTimer > 0) return;
+        if (grapplingCdTimer < grapplingCd) return;
 
         grappling = true;
         pm.canMove = false;
@@ -95,9 +135,8 @@ public class Grappling : MonoBehaviour
             if (hit.transform.GetComponent<Rigidbody>() != null)
             {
                 currentHookedObj = hit.transform;
-
+                isHooking = true;
                 grapplePoint = hit.point;
-                Invoke(nameof(ExecuteHook), grappleDelayTime);
             }           
             //Grapple
             else
@@ -105,6 +144,9 @@ public class Grappling : MonoBehaviour
                 grapplePoint = hit.point + grapplePointOffset;
                 Invoke(nameof(ExecuteGrapple), grappleDelayTime);
             }
+
+            lr.enabled = true;
+            lr.SetPosition(1, grappleLinePoint);
         }
         //If the player hits nothing
         else
@@ -112,10 +154,10 @@ public class Grappling : MonoBehaviour
             grapplePoint = cam.position + cam.forward * maxGrappleDistance;
 
             Invoke(nameof(StopGrapple), grappleDelayTime);
-        }
 
-        lr.enabled = true;
-        lr.SetPosition(1, grappleLinePoint);
+            lr.enabled = true;
+            lr.SetPosition(1, grapplePoint);
+        }
     }
 
     private void ExecuteGrapple()
@@ -134,15 +176,6 @@ public class Grappling : MonoBehaviour
         Invoke(nameof(StopGrapple), 1f);
     }
 
-    private void ExecuteHook()
-    {
-        isHooking = true;
-
-        GrabObjectWithRaycast(currentHookedObj, grapplePoint);
-
-        Invoke(nameof(StopGrapple), 1f);
-    }
-
     public void StopGrapple()
     {
         grappling = false;
@@ -150,32 +183,37 @@ public class Grappling : MonoBehaviour
 
         pm.canMove = true;
 
-        grapplingCdTimer = grapplingCd;
+        grappleForeground.fillAmount = 0;
+        grapplingCdTimer = 0;
+        smoothing = true;
 
         lr.enabled = false;
     }
 
-    public void GrabObjectWithRaycast(Transform hookedObj, Vector3 grapplePoint)
+    public void PullObjectWithRaycast(Transform hookedObj)
     {
-        Vector3 heading = grapplePoint - gunTip.position; //startpoint
-        float distance = Vector3.Distance(gunTip.position, grapplePoint);
-        Vector3 direction = heading / distance;
+        Vector3 pos = hookedObj.position;
+        float distance = Vector3.Distance(hookedObj.position, grappleTip.position);
+        Vector3 dir = (grappleTip.position - hookedObj.position).normalized;
+        Debug.DrawRay(pos, dir * distance, Color.red, 0.1f);
 
-        Ray ray = new Ray(gunTip.position, direction * distance);
-        Debug.DrawRay(gunTip.position, direction * distance, Color.red, 5);
+        Ray ray = new Ray(hookedObj.position, dir* distance);
 
-        Rigidbody rb = currentHookedObj.GetComponent<Rigidbody>();
+
+        Rigidbody rb = hookedObj.GetComponent<Rigidbody>();
 
         if (rb != null && !rb.isKinematic && rb.constraints == RigidbodyConstraints.None)
         {
-            float force = distance;
+            float force = pullForce;
             Debug.Log("Distance: " + distance + ", Force: " + force);
 
-            rb.AddForce(ray.direction * -force, ForceMode.Impulse);
+            rb.AddForce(ray.direction * force, ForceMode.Force);
 
-            if (distance < 5f)
+            if (distance < 2f)
             {
+                Debug.Log("Reached");
                 rb.velocity = Vector3.zero;
+                Invoke(nameof(StopGrapple), 0f);
             }
         }
     }

@@ -520,6 +520,8 @@ MonoBehaviour:
   groundDrag: 5
   isSprinting: 0
   canMove: 0
+  isSnapping: 0
+  targetPos: {x: 0, y: 0, z: 0}
   jumpForce: 8
   jumpCooldown: 1
   airMultiplier: 0.4
@@ -548,7 +550,12 @@ MonoBehaviour:
   animator: {fileID: 7710481715800506200}
   weapon: {fileID: 5232661316363729149, guid: 168205d3a92419741a36fdabc5319d21, type: 3}
   weaponHolder: {fileID: 7710481716762346771}
+  spawner: {fileID: 0}
   comboCount: 0
+  attackCooldown: 0
+  snapRange: 0
+  enemies: []
+  targetedEnemy: {fileID: 0}
 --- !u!114 &7710481714877062734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -562,12 +569,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
-  gunTip: {fileID: 7710481716278858044}
+  grappleTip: {fileID: 7710481716278858044}
   whatIsGrappable:
     serializedVersion: 2
     m_Bits: 247
   lr: {fileID: 7710481716278858043}
-  debug: {fileID: 0}
+  debugUI: {fileID: 0}
   maxGrappleDistance: 30
   grappleDelayTime: 0.5
   overshootYAxis: 2
@@ -576,7 +583,6 @@ MonoBehaviour:
   grapplingCd: 1
   grapplingCdTimer: 0
   anim: {fileID: 7710481715800506200}
-  grappleKey: 324
   grappling: 0
 --- !u!1 &7710481714988125017
 GameObject:

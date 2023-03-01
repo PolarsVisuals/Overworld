@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerCombat : MonoBehaviour
 {
@@ -8,12 +9,17 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] GameObject weapon;
     [SerializeField] GameObject weaponHolder;
+    [SerializeField] Spawner spawner;
 
     [Header("Attacking")]
     [SerializeField] float comboCount;
     [SerializeField] float attackCooldown;
-
     [SerializeField] float snapRange;
+    public float attackCdTimer;
+
+    [Header("HUD")]
+    public Image attackForeground;
+    bool smoothing;
 
     bool canAttack;
     bool isAttacking;
@@ -28,6 +34,9 @@ public class PlayerCombat : MonoBehaviour
     {
         isAttacking = false;
         canAttack = true;
+
+        attackCdTimer = attackCooldown;
+        smoothing = false;
     }
 
     private void Start()
@@ -50,7 +59,7 @@ public class PlayerCombat : MonoBehaviour
 
             if(distFromEnemy <= snapRange)
             {
-                if(distFromEnemy >= 2)
+                if(distFromEnemy >= 1)
                 {
                     playerMovement.SnapToPosition(targetedEnemy.position);
                 }
@@ -69,6 +78,20 @@ public class PlayerCombat : MonoBehaviour
             {
                 StartAttack();
             }
+        }
+
+        if(attackCdTimer < attackCooldown)
+        {
+            attackCdTimer += Time.deltaTime;
+        }
+
+        if (smoothing)
+        {
+            float prevFill = attackForeground.fillAmount;
+            float currFill = attackCdTimer / attackCooldown;
+            if (currFill > prevFill) prevFill = Mathf.Min(prevFill + 0.01f, currFill);
+            else if (currFill < prevFill) prevFill = Mathf.Max(prevFill - 0.01f, currFill);
+            attackForeground.fillAmount = prevFill;
         }
     }
 
@@ -116,7 +139,11 @@ public class PlayerCombat : MonoBehaviour
     IEnumerator AttackCooldown()
     {
         canAttack = false;
+        attackCdTimer = 0;
+        attackForeground.fillAmount = 0;
+        smoothing = true;
         yield return new WaitForSeconds(attackCooldown);
+        smoothing = false;
         canAttack = true;
     }
 
@@ -125,12 +152,21 @@ public class PlayerCombat : MonoBehaviour
         //Clears the current list
         enemies.Clear();
 
-        //Makes a list of all enemies in the level
-        List<GameObject> enemyList = GameObject.Find("Spawner").GetComponent<Spawner>().enemies;
-        if(enemyList.Count == 0)
+        List<GameObject> enemyList;
+
+        if (spawner == null)
         {
-            Debug.Log("No enemies found");
+            Debug.Log("No spawner found");
             return transform;
+        }
+        else
+        {
+            enemyList = spawner.enemies;
+            if (enemyList.Count == 0)
+            {
+                Debug.Log("No enemies found");
+                return transform;
+            }
         }
 
         foreach(GameObject enemy in enemyList)
