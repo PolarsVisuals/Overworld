@@ -22,10 +22,12 @@ public class PlayerCombat : MonoBehaviour
     bool smoothing;
 
     bool canAttack;
-    bool isAttacking;
+    public bool isAttacking;
  
     private GameObject currentWeaponInHand;
     private PlayerMovement playerMovement;
+
+    private DamageDealer damageDealer;
 
     [SerializeField] List<Transform> enemies = new List<Transform>();
     [SerializeField] Transform targetedEnemy;
@@ -44,6 +46,8 @@ public class PlayerCombat : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
 
         currentWeaponInHand = Instantiate(weapon, weaponHolder.transform);
+
+        damageDealer = currentWeaponInHand.GetComponent<DamageDealer>();
     }
 
     private void Update()
@@ -99,6 +103,8 @@ public class PlayerCombat : MonoBehaviour
     {
         isAttacking = true;
 
+        damageDealer.dealDamage = true;
+
         playerMovement.canMove = false;
         playerMovement.canJump = false;  
 
@@ -130,6 +136,8 @@ public class PlayerCombat : MonoBehaviour
     {
         //Debug.Log("Ended");
         isAttacking = false;
+
+        damageDealer.dealDamage = false;
         StartCoroutine(AttackCooldown());
 
         playerMovement.canMove = true;

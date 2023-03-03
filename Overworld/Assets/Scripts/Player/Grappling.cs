@@ -134,9 +134,9 @@ public class Grappling : MonoBehaviour
             //Hook
             if (hit.transform.GetComponent<Rigidbody>() != null)
             {
-                currentHookedObj = hit.transform;
-                isHooking = true;
+                currentHookedObj = hit.transform;             
                 grapplePoint = hit.point;
+                Invoke(nameof(ExecuteHook), grappleDelayTime);
             }           
             //Grapple
             else
@@ -174,6 +174,11 @@ public class Grappling : MonoBehaviour
         pm.JumpToPosition(grapplePoint, highestPointOnArc);
 
         Invoke(nameof(StopGrapple), 1f);
+    }
+
+    void ExecuteHook()
+    {
+        isHooking = true;
     }
 
     public void StopGrapple()

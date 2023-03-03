@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     Animator animator;
     NavMeshAgent agent;
     GameObject player;
+    public DamageDealer damageDealer;
 
     [Header("Combat")]
     [SerializeField] float attackCD = 3f;
@@ -35,23 +36,21 @@ public class Enemy : MonoBehaviour
             if(Vector3.Distance(player.transform.position, transform.position) <= attackRange)
             {
                 animator.SetTrigger("attack");
+                damageDealer.dealDamage = true;
                 timePassed = 0;
             }
+        }
+        else
+        {
+            damageDealer.dealDamage = false;
         }
 
         if (Vector3.Distance(player.transform.position, transform.position) <= aggroRange)
         {
+            transform.LookAt(player.transform);
             agent.SetDestination(player.transform.position);
         }
 
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Weapon"))
-        {
-            Destroy(gameObject);
-        }
     }
 
     private void OnDrawGizmos()
