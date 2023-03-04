@@ -231,7 +231,7 @@ public class PlayerMovement : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, _targetPos, 1);
 
         // Check if the position of the cube and sphere are approximately equal.
-        if (Vector3.Distance(transform.position, _targetPos) < 2f)
+        if (Vector3.Distance(transform.position, _targetPos) < 1f)
         {
             isSnapping = false;
         }

@@ -14,7 +14,8 @@ public class PlayerCombat : MonoBehaviour
     [Header("Attacking")]
     [SerializeField] float comboCount;
     [SerializeField] float attackCooldown;
-    [SerializeField] float snapRange;
+    [SerializeField] float snapMin;
+    [SerializeField] float snapMax;
     public float attackCdTimer;
 
     [Header("HUD")]
@@ -61,9 +62,9 @@ public class PlayerCombat : MonoBehaviour
         {
             canAttack = false;
 
-            if(distFromEnemy <= snapRange)
+            if(distFromEnemy <= snapMax)
             {
-                if(distFromEnemy >= 1)
+                if(distFromEnemy >= snapMin)
                 {
                     playerMovement.SnapToPosition(targetedEnemy.position);
                 }
@@ -136,9 +137,9 @@ public class PlayerCombat : MonoBehaviour
     {
         //Debug.Log("Ended");
         isAttacking = false;
+        StartCoroutine(AttackCooldown());
 
         damageDealer.dealDamage = false;
-        StartCoroutine(AttackCooldown());
 
         playerMovement.canMove = true;
         playerMovement.canJump = true;

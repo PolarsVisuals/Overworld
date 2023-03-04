@@ -91,7 +91,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddbdfa24369df1449b2ff6ae9234a123, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  theTag: Player
   damage: 5
+  hitBox: {fileID: 0}
   dealDamage: 0
 --- !u!1001 &5406820691327029433
 PrefabInstance:

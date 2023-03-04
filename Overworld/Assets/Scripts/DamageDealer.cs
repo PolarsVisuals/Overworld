@@ -4,37 +4,36 @@ using UnityEngine;
 
 public class DamageDealer : MonoBehaviour
 {
+    public string theTag;
     public float damage;
 
-    BoxCollider hitBox;
+    public Collider hitBox;
     public bool dealDamage;
 
     private void Start()
     {
-        hitBox = GetComponent<BoxCollider>();
         dealDamage = false;
-    }
-
-    private void Update()
-    {
-        if (dealDamage)
-        {
-            hitBox.isTrigger = true;
-        }
-        else
-        {
-            hitBox.isTrigger = false;
-        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<LivingEntity>())
+        Debug.Log(other.tag);
+        if (other.tag != theTag)
         {
-            Debug.Log("Hit");
-            LivingEntity leScript = other.GetComponent<LivingEntity>();
+            {
+                if (dealDamage)
+                {
+                    if (other.gameObject.GetComponent<LivingEntity>())
+                    {
+                        Debug.Log("Hit " + other.name);
+                        LivingEntity leScript = other.GetComponent<LivingEntity>();
 
-            leScript.TakeDamage(damage);
+                        leScript.TakeDamage(damage);
+                        dealDamage = false;
+                    }
+                }
+            }
         }
     }
 }
+
