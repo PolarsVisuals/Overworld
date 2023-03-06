@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1786054046}
-  m_IndirectSpecularColor: {r: 0.3521173, g: 0.72388566, b: 0.9584319, a: 1}
+  m_IndirectSpecularColor: {r: 0.35209528, g: 0.72411317, b: 0.95809513, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -778,9 +778,10 @@ MonoBehaviour:
   - {fileID: 64985733}
   - {fileID: 430348842}
   spawnTime: 10
-  spawnDelay: 15
+  spawnDelay: 5
   skelly: {fileID: 1717460127712534569, guid: c56a634b3130d044eb0a76f9c12d3de6, type: 3}
-  enemies: []
+  enemies:
+  - {fileID: 0}
 --- !u!4 &366892648
 Transform:
   m_ObjectHideFlags: 0
