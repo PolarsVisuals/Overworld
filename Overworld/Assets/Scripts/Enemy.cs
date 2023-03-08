@@ -49,7 +49,7 @@ public class Enemy : MonoBehaviour
 
         if (Vector3.Distance(player.transform.position, transform.position) <= aggroRange && animator.enabled == true)
         {
-            transform.LookAt(player.transform);
+            //transform.LookAt(player.transform);
             agent.SetDestination(player.transform.position);
         }
 
