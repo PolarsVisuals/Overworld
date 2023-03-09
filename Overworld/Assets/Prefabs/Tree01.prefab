@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 1276294707927552969}
   - component: {fileID: 2745389082098310252}
   - component: {fileID: 143380280426916006}
-  - component: {fileID: 4168120988582265386}
-  - component: {fileID: 7937445317800663287}
+  - component: {fileID: 1310251010507531019}
+  - component: {fileID: 1176759935960340509}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1944886444888410483}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.415051, y: 8.591112, z: 3.2625198}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -86,8 +86,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &4168120988582265386
-MeshCollider:
+--- !u!65 &1310251010507531019
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -96,11 +96,10 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 3582805594628865998, guid: b4607ed102355824dab3d471c34ceef0, type: 3}
---- !u!205 &7937445317800663287
+  serializedVersion: 2
+  m_Size: {x: 2.6468163, y: 7.072605, z: 2.525661}
+  m_Center: {x: -0.08593607, y: 3.1501713, z: 0.05536294}
+--- !u!205 &1176759935960340509
 LODGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -110,19 +109,19 @@ LODGroup:
   serializedVersion: 2
   m_LocalReferencePoint: {x: 2.1612005, y: 4.905656, z: -0.34194803}
   m_Size: 16.051512
-  m_FadeMode: 1
+  m_FadeMode: 0
   m_AnimateCrossFading: 0
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.74374425
+  - screenRelativeHeight: 0.6
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 143380280426916006}
-  - screenRelativeHeight: 0.02643799
+  - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 143380280426916006}
-  - screenRelativeHeight: 0.0056911726
+  - screenRelativeHeight: 0.1
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 143380280426916006}
