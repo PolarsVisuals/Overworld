@@ -88,8 +88,8 @@ public class Grappling : MonoBehaviour
         {
             float prevFill = grappleForeground.fillAmount;
             float currFill = grapplingCdTimer / grapplingCd;
-            if (currFill > prevFill) prevFill = Mathf.Min(prevFill + 0.01f, currFill);
-            else if (currFill < prevFill) prevFill = Mathf.Max(prevFill - 0.01f, currFill);
+            if (currFill > prevFill) prevFill = Mathf.Min(prevFill + 0.05f, currFill);
+            else if (currFill < prevFill) prevFill = Mathf.Max(prevFill - 0.05f, currFill);
             grappleForeground.fillAmount = prevFill;
         }
 

@@ -94,8 +94,8 @@ public class PlayerCombat : MonoBehaviour
         {
             float prevFill = attackForeground.fillAmount;
             float currFill = attackCdTimer / attackCooldown;
-            if (currFill > prevFill) prevFill = Mathf.Min(prevFill + 0.01f, currFill);
-            else if (currFill < prevFill) prevFill = Mathf.Max(prevFill - 0.01f, currFill);
+            if (currFill > prevFill) prevFill = Mathf.Min(prevFill + 0.05f, currFill);
+            else if (currFill < prevFill) prevFill = Mathf.Max(prevFill - 0.05f, currFill);
             attackForeground.fillAmount = prevFill;
         }
     }

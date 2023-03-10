@@ -23,11 +23,7 @@ public class LivingEntity : MonoBehaviour
     {
         if(currentHealth <= 0)
         {
-            Destroy(gameObject, 5);
-            if(enemyScript != null)
-            {
-                enemyScript.RagdollOn();
-            }
+            Destroy(gameObject);
         }
         else if(currentHealth > health)
         {
