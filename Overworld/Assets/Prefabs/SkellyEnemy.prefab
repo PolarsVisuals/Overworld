@@ -524,6 +524,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2062213559458445971}
+  - component: {fileID: 4963106385448268502}
   - component: {fileID: 5367825228145516778}
   - component: {fileID: 5367825228145516779}
   - component: {fileID: 5367825228145516780}
@@ -559,6 +560,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &4963106385448268502
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1717460127712534569}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: b6ba1d25120505248b1af8077644846f, type: 3}
+  m_Controller: {fileID: 9100000, guid: 0fd5d3935243d464389f9254710300c8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!136 &5367825228145516778
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -586,7 +607,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageDealer: {fileID: 4779959542671034135}
-  attackCD: 1
+  attackCD: 2
   attackRange: 1.25
   aggroRange: 20
 --- !u!195 &5367825228145516780
@@ -600,7 +621,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.25
   m_Speed: 3
-  m_Acceleration: 15
+  m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 1

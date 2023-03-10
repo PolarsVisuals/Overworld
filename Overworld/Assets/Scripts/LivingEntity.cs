@@ -14,16 +14,32 @@ public class LivingEntity : MonoBehaviour
 
     private float currentHealth;
 
+    bool dead;
+
     private void Start()
     {
         currentHealth = health;
+        dead = false;
     }
 
     private void Update()
     {
-        if(currentHealth <= 0)
+        if(currentHealth <= 0 && !dead)
         {
-            Destroy(gameObject);
+            if (gameObject.GetComponent<Enemy>())
+            {
+                GetComponent<Enemy>().animator.SetTrigger("Death");
+                GetComponent<CapsuleCollider>().enabled = false;
+                GetComponent<Enemy>().canMove = false;
+                GetComponent<Enemy>().dead = true;
+                Destroy(gameObject, 5f);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+
+            dead = true;
         }
         else if(currentHealth > health)
         {

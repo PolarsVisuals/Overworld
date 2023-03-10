@@ -1588,7 +1588,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &366892647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1605,7 +1605,7 @@ MonoBehaviour:
   - {fileID: 7825819}
   - {fileID: 2135772780}
   - {fileID: 489028628}
-  spawnTime: 3
+  spawnTime: 5
   spawnDelay: 1
   skelly: {fileID: 1717460127712534569, guid: c56a634b3130d044eb0a76f9c12d3de6, type: 3}
   enemies:
