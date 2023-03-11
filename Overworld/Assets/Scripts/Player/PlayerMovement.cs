@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
 
     public bool isSnapping;
     public Vector3 targetPos;
+    public float _snapMin;
     
     float horizontalInput;
     float verticalInput;
@@ -216,11 +217,12 @@ public class PlayerMovement : MonoBehaviour
         Invoke(nameof(SetVelocity), 0.1f);
     }
 
-    public void SnapToPosition(Vector3 targetPosition)
+    public void SnapToPosition(Vector3 targetPosition, float snapMin)
     {
         ThirdPersonCam camScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ThirdPersonCam>();
 
         targetPos = targetPosition;
+        _snapMin = snapMin;
 
         isSnapping = true;
     }
@@ -231,7 +233,7 @@ public class PlayerMovement : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, _targetPos, 1);
 
         // Check if the position of the cube and sphere are approximately equal.
-        if (Vector3.Distance(transform.position, _targetPos) < 1f)
+        if (Vector3.Distance(transform.position, _targetPos) < _snapMin)
         {
             isSnapping = false;
         }

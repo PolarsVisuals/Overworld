@@ -606,10 +606,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b715952822b79c24b97d0fdab1da568b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
   damageDealer: {fileID: 4779959542671034135}
   attackCD: 2
   attackRange: 1.25
-  aggroRange: 20
+  aggroRange: 40
+  canMove: 0
+  dead: 0
 --- !u!195 &5367825228145516780
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -644,10 +647,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea5831a658175d5478043fbb5252598d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 2
+  health: 10
   healthbar: {fileID: 0}
   healthText: {fileID: 0}
   enemyScript: {fileID: 5367825228145516779}
+  meshs:
+  - {fileID: 4167914635958973646}
+  - {fileID: 1247787065922992615}
+  - {fileID: 8111475500101440316}
+  - {fileID: 987821382119718954}
+  - {fileID: 2044155643043488976}
+  - {fileID: 4502202911833581993}
+  - {fileID: 3239867421437181351}
+  - {fileID: 7827973785912784188}
+  floatingText: {fileID: 2551172822199840147, guid: cd4161d8bd16442459ff7c0a5adf32c1, type: 3}
 --- !u!1 &1804799171306692414
 GameObject:
   m_ObjectHideFlags: 0
@@ -2288,7 +2301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   theTag: Enemy
-  damage: 5
+  damage: 25
   hitBox: {fileID: 6666911314833722744}
   dealDamage: 0
 --- !u!1 &7010896680862492923

@@ -32,6 +32,11 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
+        if (dead)
+        {
+            damageDealer.dealDamage = false;
+        }
+
         timePassed += Time.deltaTime;
 
         Debug.Log("Enemy Vel " + agent.velocity.magnitude);
@@ -42,8 +47,7 @@ public class Enemy : MonoBehaviour
             if(Vector3.Distance(player.transform.position, transform.position) <= attackRange)
             {
                 canMove = false;
-                animator.SetTrigger("Attack");
-                damageDealer.dealDamage = true;
+                animator.SetTrigger("Attack");            
                 timePassed = 0;
             }
         }
@@ -56,10 +60,15 @@ public class Enemy : MonoBehaviour
 
     }
 
+    void StartAttack()
+    {
+        damageDealer.dealDamage = true;
+    }
+
     void EndAttack()
     {
         canMove = true;
-        Debug.Log("Enemy ended attack");
+        //Debug.Log("Enemy ended attack");
         damageDealer.dealDamage = false;
     }
 

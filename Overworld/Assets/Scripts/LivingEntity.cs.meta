@@ -3,7 +3,11 @@ guid: ea5831a658175d5478043fbb5252598d
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - healthbar: {instanceID: 0}
+  - healthText: {instanceID: 0}
+  - enemyScript: {instanceID: 0}
+  - floatingText: {fileID: 2551172822199840147, guid: cd4161d8bd16442459ff7c0a5adf32c1, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

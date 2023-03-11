@@ -22,6 +22,7 @@ public class Grappling : MonoBehaviour
     private Vector3 grappleLinePoint;
 
     public bool grappling;
+    public bool canGrapple;
 
     [Header("Hooking")]
     [SerializeField] float pullForce;
@@ -45,28 +46,32 @@ public class Grappling : MonoBehaviour
         pm = GetComponent<PlayerMovement>();
         smoothing = false;
         grapplingCdTimer = grapplingCd;
+        canGrapple = true;
     }
 
     private void Update()
     {
-        if (Input.GetButtonDown("Grapple") && !grappling)
+        if (canGrapple)
         {
-            //Debug.Log("Pressed Grapple");
-            StartGrapple();
-        }
-        if(Input.GetButton("Grapple") && isHooking)
-        {
-            //Debug.Log("Pulling Object");
-            PullObjectWithRaycast(currentHookedObj);
-        }
-        if(Input.GetButtonUp("Grapple") && isHooking)
-        {
-            Invoke(nameof(StopGrapple), 0f);
-        }
+            if (Input.GetButtonDown("Grapple") && !grappling)
+            {
+                //Debug.Log("Pressed Grapple");
+                StartGrapple();
+            }
+            if (Input.GetButton("Grapple") && isHooking)
+            {
+                //Debug.Log("Pulling Object");
+                PullObjectWithRaycast(currentHookedObj);
+            }
+            if (Input.GetButtonUp("Grapple") && isHooking)
+            {
+                Invoke(nameof(StopGrapple), 0f);
+            }
 
-        if (grapplingCdTimer < grapplingCd)
-        {
-            grapplingCdTimer += Time.deltaTime;
+            if (grapplingCdTimer < grapplingCd)
+            {
+                grapplingCdTimer += Time.deltaTime;
+            }
         }
     }
 

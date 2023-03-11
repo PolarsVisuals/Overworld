@@ -11,6 +11,9 @@ public class LivingEntity : MonoBehaviour
     public Image healthbar;
     public TextMeshProUGUI healthText;
     public Enemy enemyScript;
+    public SkinnedMeshRenderer[] meshs;
+
+    public GameObject floatingText;
 
     private float currentHealth;
 
@@ -34,9 +37,14 @@ public class LivingEntity : MonoBehaviour
                 GetComponent<Enemy>().dead = true;
                 Destroy(gameObject, 5f);
             }
-            else
+            if(gameObject.GetComponent<PlayerCombat>())
             {
-                Destroy(gameObject);
+                GetComponent<PlayerMovement>().animator.SetTrigger("Death");
+                GetComponent<PlayerMovement>().canMove = false;
+                GetComponent<PlayerMovement>().canJump = false;
+                GetComponent<PlayerCombat>().isDead = true;
+                GetComponent<Grappling>().canGrapple = false;
+                Destroy(gameObject, 5f);
             }
 
             dead = true;
@@ -62,5 +70,33 @@ public class LivingEntity : MonoBehaviour
     public void TakeDamage(float amount)
     {
         currentHealth = currentHealth - amount;
+        if (GetComponent<Enemy>())
+        {
+            SpawnFloatingText(amount);
+        }
+        StartCoroutine(FlickerMesh());
+    }
+
+    IEnumerator FlickerMesh()
+    {
+        foreach (SkinnedMeshRenderer mesh in meshs)
+        {
+            mesh.enabled = false;
+        }
+        yield return new WaitForSeconds(0.1f);
+        foreach (SkinnedMeshRenderer mesh in meshs)
+        {
+            mesh.enabled = true;
+        }
+    }
+
+    void SpawnFloatingText(float amount)
+    {
+        TextMeshProUGUI text = Instantiate(floatingText, GameObject.Find("Canvas").transform).GetComponent<TextMeshProUGUI>();
+
+        FloatingText ft = text.GetComponent<FloatingText>();
+
+        ft.position = transform;
+        ft.amount = amount;
     }
 }

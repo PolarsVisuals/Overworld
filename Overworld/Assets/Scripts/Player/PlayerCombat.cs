@@ -24,6 +24,7 @@ public class PlayerCombat : MonoBehaviour
 
     bool canAttack;
     public bool isAttacking;
+    public bool isDead;
  
     private GameObject currentWeaponInHand;
     private PlayerMovement playerMovement;
@@ -40,6 +41,8 @@ public class PlayerCombat : MonoBehaviour
 
         attackCdTimer = attackCooldown;
         smoothing = false;
+
+        isDead = false;
     }
 
     private void Start()
@@ -53,50 +56,53 @@ public class PlayerCombat : MonoBehaviour
 
     private void Update()
     {
-        targetedEnemy = GetClosestEnemy();
-
-        float distFromEnemy = Vector3.Distance(transform.position, targetedEnemy.position);
-        Debug.DrawLine(transform.position, targetedEnemy.position, Color.blue);
-
-        if (Input.GetButtonDown("Attack") && playerMovement.grounded && canAttack)
+        if (!isDead)
         {
-            canAttack = false;
+            targetedEnemy = GetClosestEnemy();
 
-            if(distFromEnemy <= snapMax)
+            float distFromEnemy = Vector3.Distance(transform.position, targetedEnemy.position);
+            Debug.DrawLine(transform.position, targetedEnemy.position, Color.blue);
+
+            if (Input.GetButtonDown("Attack") && playerMovement.grounded && canAttack)
             {
-                if(distFromEnemy >= snapMin)
+                canAttack = false;
+
+                if (distFromEnemy <= snapMax)
                 {
-                    playerMovement.SnapToPosition(targetedEnemy.position);
+                    if (distFromEnemy >= snapMin)
+                    {
+                        playerMovement.SnapToPosition(targetedEnemy.position, snapMin);
+                    }
+                    else
+                    {
+                        ThirdPersonCam cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ThirdPersonCam>();
+                        cam.LookAtTarget(targetedEnemy.position);
+                    }
+                }
+
+                if (isAttacking)
+                {
+                    ExecuteCombo();
                 }
                 else
                 {
-                    ThirdPersonCam cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ThirdPersonCam>();
-                    cam.LookAtTarget(targetedEnemy.position);
+                    StartAttack();
                 }
             }
 
-            if (isAttacking)
+            if (attackCdTimer < attackCooldown)
             {
-                ExecuteCombo();
+                attackCdTimer += Time.deltaTime;
             }
-            else
+
+            if (smoothing)
             {
-                StartAttack();
+                float prevFill = attackForeground.fillAmount;
+                float currFill = attackCdTimer / attackCooldown;
+                if (currFill > prevFill) prevFill = Mathf.Min(prevFill + 0.05f, currFill);
+                else if (currFill < prevFill) prevFill = Mathf.Max(prevFill - 0.05f, currFill);
+                attackForeground.fillAmount = prevFill;
             }
-        }
-
-        if(attackCdTimer < attackCooldown)
-        {
-            attackCdTimer += Time.deltaTime;
-        }
-
-        if (smoothing)
-        {
-            float prevFill = attackForeground.fillAmount;
-            float currFill = attackCdTimer / attackCooldown;
-            if (currFill > prevFill) prevFill = Mathf.Min(prevFill + 0.05f, currFill);
-            else if (currFill < prevFill) prevFill = Mathf.Max(prevFill - 0.05f, currFill);
-            attackForeground.fillAmount = prevFill;
         }
     }
 
@@ -117,11 +123,14 @@ public class PlayerCombat : MonoBehaviour
     public void InitiateCombo()
     {
         canAttack = true;
+
+        damageDealer.dealDamage = false;
     }
 
     public void ExecuteCombo()
     {
-        if(comboCount == 1)
+        damageDealer.dealDamage = true;
+        if (comboCount == 1)
         {
             animator.SetTrigger("attack2");
         }
