@@ -666,7 +666,7 @@
     },
     "m_PreviewData": {
         "serializedMesh": {
-            "m_SerializedMesh": "{\"mesh\":{\"instanceID\":0}}",
+            "m_SerializedMesh": "{\"mesh\":{\"fileID\":8254687373856176130,\"guid\":\"e6d4a3ef2404e4542b9465c9472de7f7\",\"type\":3}}",
             "m_Guid": ""
         },
         "preventRotation": false
