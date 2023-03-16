@@ -167,7 +167,6 @@ public class PlayerCombat : MonoBehaviour
 
     Transform GetClosestEnemy()
     {
-        //Clears the current list
         enemies.Clear();
 
         List<GameObject> enemyList;
@@ -189,7 +188,15 @@ public class PlayerCombat : MonoBehaviour
 
         foreach(GameObject enemy in enemyList)
         {
-            enemies.Add(enemy.transform);
+            if(enemy != null)
+            {
+                enemies.Add(enemy.transform);
+            }
+            else
+            {
+                return transform;
+            }
+
         }
 
         Transform closestTarget = null;
