@@ -3,7 +3,67 @@ guid: 8ab46c18c7e22754fab6ada9f3644376
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BigRock1_MAT
+    second: {fileID: 2100000, guid: a00f8800b40a0e845b5654cfaf170d60, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BigRock2_MAT
+    second: {fileID: 2100000, guid: 44d49ce3e532f7049a5caa308b4f86ab, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MediumRock1_MAT
+    second: {fileID: 2100000, guid: 5f834b8126507634580427fdd3db9d80, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MediumRock2_MAT
+    second: {fileID: 2100000, guid: 78532eef05c030746b61570d8e1325e6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MediumRock3_MAT
+    second: {fileID: 2100000, guid: 6e7928d5419f85a4486931a1bae97be6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SmallRock1_MAT
+    second: {fileID: 2100000, guid: 1f23d6cdfb321044ab8c2dfb9fb93926, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SmallRock2_MAT
+    second: {fileID: 2100000, guid: 8e7a5f8315cb8314fbf858ad3c1a73f1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SmallRock3_MAT
+    second: {fileID: 2100000, guid: f52c03f97336d0e4ba51ee8dca2961ab, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SmallRock4_MAT
+    second: {fileID: 2100000, guid: 770d9fa91e89d084ba3d274f9f77f5ab, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SmallRock5_MAT
+    second: {fileID: 2100000, guid: e40f1aad911edd840b2230e784035723, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SmallRock6_MAT
+    second: {fileID: 2100000, guid: 360da3a936126df41922bf7c4e6089f6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SmallRock7_MAT
+    second: {fileID: 2100000, guid: ad3c5a1e38a1daf459e1027acd31784b, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
