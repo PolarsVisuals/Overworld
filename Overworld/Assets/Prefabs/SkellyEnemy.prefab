@@ -1233,7 +1233,7 @@ MonoBehaviour:
   damageDealer: {fileID: 8855319071059362001}
   attackCD: 2
   attackRange: 1.25
-  aggroRange: 40
+  aggroRange: 100
   canMove: 0
   dead: 0
   activeTarget: 0

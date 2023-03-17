@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 4361558167335910958}
   - component: {fileID: 3325680863593352057}
   m_Layer: 0
-  m_Name: Grass01
+  m_Name: Grass02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -214,11 +214,11 @@ LODGroup:
   m_AnimateCrossFading: 0
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.104789205
+  - screenRelativeHeight: 0
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 2373633668393259685}
-  - screenRelativeHeight: 0.049284663
+  - screenRelativeHeight: 0
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 3735943405746755455}
