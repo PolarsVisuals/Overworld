@@ -29,6 +29,8 @@ public class DamageDealer : MonoBehaviour
                         LivingEntity leScript = other.GetComponent<LivingEntity>();
 
                         leScript.TakeDamage(damage);
+
+                        dealDamage = false;
                     }
                 }
             }

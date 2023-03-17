@@ -17,6 +17,7 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] float snapMin;
     [SerializeField] float snapMax;
     public float attackCdTimer;
+    public EnemyCrossahir enemyCrosshair;
 
     [Header("HUD")]
     public Image attackForeground;
@@ -103,6 +104,16 @@ public class PlayerCombat : MonoBehaviour
                 else if (currFill < prevFill) prevFill = Mathf.Max(prevFill - 0.05f, currFill);
                 attackForeground.fillAmount = prevFill;
             }
+
+            if (distFromEnemy <= snapMax)
+            {
+                enemyCrosshair.enemyPos = targetedEnemy.position;
+                enemyCrosshair.TurnOn();
+            }
+            else
+            {
+                enemyCrosshair.TurnOff();
+            }
         }
     }
 
@@ -188,7 +199,7 @@ public class PlayerCombat : MonoBehaviour
 
         foreach(GameObject enemy in enemyList)
         {
-            if(enemy != null)
+            if(enemy != null || enemy.GetComponent<Enemy>().activeTarget == true)
             {
                 enemies.Add(enemy.transform);
             }

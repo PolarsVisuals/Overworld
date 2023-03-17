@@ -26,7 +26,7 @@ public class Grappling : MonoBehaviour
 
     [Header("Hooking")]
     [SerializeField] float pullForce;
-    Transform currentHookedObj;
+    [SerializeField]Transform currentHookedObj;
     [SerializeField] bool isHooking;
 
     [Header("Cooldown")]
@@ -62,9 +62,11 @@ public class Grappling : MonoBehaviour
             {
                 //Debug.Log("Pulling Object");
                 PullObjectWithRaycast(currentHookedObj);
+                currentHookedObj.GetComponent<MoveableObject>().dealDamage = true;
             }
             if (Input.GetButtonUp("Grapple") && isHooking)
             {
+                currentHookedObj.GetComponent<MoveableObject>().dealDamage = false;
                 Invoke(nameof(StopGrapple), 0f);
             }
 
@@ -190,6 +192,7 @@ public class Grappling : MonoBehaviour
     {
         grappling = false;
         isHooking = false;
+        currentHookedObj.GetComponent<MoveableObject>().dealDamage = false;
 
         pm.canMove = true;
 
@@ -219,10 +222,11 @@ public class Grappling : MonoBehaviour
 
             rb.AddForce(ray.direction * force, ForceMode.Force);
 
-            if (distance < 2f)
+            if (distance < 1f)
             {
                 Debug.Log("Reached");
                 rb.velocity = Vector3.zero;
+                currentHookedObj.GetComponent<MoveableObject>().dealDamage = false;
                 Invoke(nameof(StopGrapple), 0f);
             }
         }

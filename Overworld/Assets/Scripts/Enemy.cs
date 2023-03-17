@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour
     float timePassed;
     public bool canMove;
     public bool dead;
+    public bool activeTarget;
 
     private void Start()
     {
@@ -28,6 +29,7 @@ public class Enemy : MonoBehaviour
 
         canMove = true;
         dead = false;
+        activeTarget = true;
     }
 
     void Update()
@@ -35,6 +37,9 @@ public class Enemy : MonoBehaviour
         if (dead)
         {
             damageDealer.dealDamage = false;
+            activeTarget = false;
+            agent.destination = transform.position;
+            return;
         }
 
         timePassed += Time.deltaTime;

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 554665330788258323}
   - component: {fileID: 7070812704818364591}
   - component: {fileID: 4322022520516573767}
+  - component: {fileID: 7158163257807595763}
   m_Layer: 6
   m_Name: MoveableRock02
   m_TagString: Untagged
@@ -63,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fcff25d14e4bb074387808681987e3f5, type: 2}
+  - {fileID: 2100000, guid: e40f1aad911edd840b2230e784035723, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -115,3 +116,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &7158163257807595763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2067835428546048966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 941837cacb251ef4796695cb98ffc8f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 5
+  hitBox: {fileID: 7070812704818364591}
+  dealDamage: 0

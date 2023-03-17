@@ -1211,7 +1211,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2231712409872956692}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.35637584
   m_Height: 1.9564222
@@ -1236,6 +1236,7 @@ MonoBehaviour:
   aggroRange: 40
   canMove: 0
   dead: 0
+  activeTarget: 0
 --- !u!195 &4851325560317771217
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1289,7 +1290,7 @@ MonoBehaviour:
   - {fileID: 2507554633571877983}
   - {fileID: 1222645525648903216}
   - {fileID: 8336025371894057180}
-  floatingText: {fileID: 2551172822199840147, guid: cd4161d8bd16442459ff7c0a5adf32c1, type: 3}
+  dead: 0
 --- !u!1 &2362513552596317413
 GameObject:
   m_ObjectHideFlags: 0

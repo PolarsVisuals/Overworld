@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Spawner : MonoBehaviour
 {
@@ -13,6 +14,11 @@ public class Spawner : MonoBehaviour
     public bool roundOver;
     public bool maximumSpawned;
     public bool canSpawn;
+
+    public TextMeshProUGUI roundNumText;
+
+    public bool gameOver;
+    public GameOverUI gameOverUI;
 
     public Transform[] spawnPoints;
     public float spawnTime = 2f;
@@ -28,50 +34,63 @@ public class Spawner : MonoBehaviour
         roundOver = true;
         maximumSpawned = false;
         canSpawn = true;
+
+        gameOver = false;
     }
 
     private void Update()
     {
         ClearEnemies();
 
-        if(roundOver)
-        {
-            if(currentRound == 1 && !maximumSpawned && canSpawn)
-            {
-                Spawn();
-            }
-            if (currentRound == 2 && !maximumSpawned && canSpawn)
-            {
-                Spawn();
-            }
-            if (currentRound == 3 && !maximumSpawned && canSpawn)
-            {
-                Spawn();
-            }
-            if (currentRound == 4 && !maximumSpawned && canSpawn)
-            {
-                Spawn();
-            }
-            if (currentRound == 5 && !maximumSpawned && canSpawn)
-            {
-                Spawn();
-            }
-            if (currentRound > 5 && !maximumSpawned && canSpawn)
-            {
-                enemyCountPerRound[currentRound - 1] = enemyCountPerRound[currentRound - 1] + multiplier;
-                multiplier++;
-                Spawn();
-            }
+        roundNumText.text = currentRound.ToString();
 
-            if (maximumSpawned)
+        if (!gameOver)
+        {
+            if (roundOver)
             {
-                enemyCount = enemies.Count;
-                if (enemyCount == 0)
+                if (currentRound == 1 && !maximumSpawned && canSpawn)
                 {
-                    currentRound++;
-                    maximumSpawned = false;
+                    Spawn();
+                }
+                if (currentRound == 2 && !maximumSpawned && canSpawn)
+                {
+                    Spawn();
+                }
+                if (currentRound == 3 && !maximumSpawned && canSpawn)
+                {
+                    Spawn();
+                }
+                if (currentRound == 4 && !maximumSpawned && canSpawn)
+                {
+                    Spawn();
+                }
+                if (currentRound == 5 && !maximumSpawned && canSpawn)
+                {
+                    Spawn();
+                }
+                if (currentRound > 5 && !maximumSpawned && canSpawn)
+                {
+                    enemyCountPerRound[currentRound - 1] = enemyCountPerRound[currentRound - 1] + multiplier;
+                    multiplier++;
+                    Spawn();
+                }
+
+                if (maximumSpawned)
+                {
+                    enemyCount = enemies.Count;
+                    if (enemyCount == 0)
+                    {
+                        currentRound++;
+                        maximumSpawned = false;
+                    }
                 }
             }
+        }
+
+        if(GameObject.Find("Player").GetComponent<LivingEntity>().dead == true)
+        {
+            gameOver = true;
+            StartCoroutine(LoadGameOver());
         }
     }
 
@@ -104,10 +123,16 @@ public class Spawner : MonoBehaviour
     {
         foreach (GameObject enemy in enemies)
         {
-            if (enemy == null)
+            if (enemy == null || enemy.GetComponent<Enemy>().activeTarget == false)
             {
                 enemies.Remove(enemy);
             }
         }
+    }
+
+    IEnumerator LoadGameOver()
+    {
+        yield return new WaitForSeconds(5);
+        gameOverUI.OnGameOver();
     }
 }
