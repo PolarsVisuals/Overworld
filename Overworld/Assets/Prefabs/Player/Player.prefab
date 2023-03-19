@@ -24,14 +24,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 89458565805796508}
-  m_LocalRotation: {x: 0.57757777, y: -0.13309896, z: 0.09613533, w: 0.79965407}
-  m_LocalPosition: {x: 0.000384, y: 0.000963, z: -0.000524}
+  m_LocalRotation: {x: 0.63274467, y: -0.12595847, z: 0.10531763, w: 0.75675416}
+  m_LocalPosition: {x: 0.000363, y: 0.001212, z: -0.000589}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8861808932808430869}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 71.68, y: -18.9, z: 0}
+  m_LocalEulerAnglesHint: {x: 79.8, y: -18.9, z: 0}
 --- !u!120 &2819115269418339580
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -241,6 +241,7 @@ MonoBehaviour:
   snapMin: 2
   snapMax: 4
   attackCdTimer: 0
+  enemyCrosshair: {fileID: 0}
   attackForeground: {fileID: 0}
   isAttacking: 0
   isDead: 0
@@ -271,6 +272,7 @@ MonoBehaviour:
   grappling: 0
   canGrapple: 0
   pullForce: 25
+  currentHookedObj: {fileID: 0}
   isHooking: 0
   grapplingCd: 2
   grapplingCdTimer: 0
@@ -314,7 +316,7 @@ MonoBehaviour:
   - {fileID: 8861808933488549219}
   - {fileID: 8861808932979004799}
   - {fileID: 8861808932365873852}
-  floatingText: {fileID: 2551172822199840147, guid: cd4161d8bd16442459ff7c0a5adf32c1, type: 3}
+  dead: 0
 --- !u!136 &4163946339898988074
 CapsuleCollider:
   m_ObjectHideFlags: 0
