@@ -5,6 +5,7 @@ using TMPro;
 
 public class Spawner : MonoBehaviour
 {
+    [Header("Rounds")]
     public int[] enemyCountPerRound;
     public int multiplier;
 
@@ -16,6 +17,11 @@ public class Spawner : MonoBehaviour
     public bool canSpawn;
 
     public TextMeshProUGUI roundNumText;
+
+    [Header("Score")]
+    public int currentScore;
+    public int scorePerEnemy;
+    public TextMeshProUGUI scoreText;
 
     public bool gameOver;
     public GameOverUI gameOverUI;
@@ -31,6 +37,8 @@ public class Spawner : MonoBehaviour
         currentRound = 1;
         enemyCount = 0;
 
+        currentScore = 0;
+
         roundOver = true;
         maximumSpawned = false;
         canSpawn = true;
@@ -43,6 +51,7 @@ public class Spawner : MonoBehaviour
         ClearEnemies();
 
         roundNumText.text = currentRound.ToString();
+        scoreText.text = currentScore.ToString();
 
         if (!gameOver)
         {
@@ -126,6 +135,7 @@ public class Spawner : MonoBehaviour
             if (enemy == null || enemy.GetComponent<Enemy>().activeTarget == false)
             {
                 enemies.Remove(enemy);
+                currentScore = currentScore + scorePerEnemy;
             }
         }
     }

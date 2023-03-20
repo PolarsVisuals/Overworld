@@ -11,6 +11,7 @@ public class GameOverUI : MonoBehaviour
     public Image fadePlane;
     public GameObject gameOverUI;
     public TextMeshProUGUI roundText;
+    public TextMeshProUGUI scoreText;
 
     void Awake()
     {
@@ -25,7 +26,8 @@ public class GameOverUI : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
 
 
-        roundText.text = Spawner.currentRound.ToString();
+        roundText.text = "You survived " + Spawner.currentRound.ToString() + " rounds";
+        scoreText.text = "You got " + Spawner.currentScore.ToString() + " points";
     }
 
     IEnumerator Fade(Color from, Color to, float time)
