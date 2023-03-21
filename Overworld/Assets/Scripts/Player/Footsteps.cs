@@ -8,6 +8,8 @@ public class Footsteps : MonoBehaviour
     public AudioClip[] FootstepAudioClips;
     [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
 
+    public GameObject particles;
+
     PlayerCombat playerCombat;
 
     private void Start()
@@ -28,6 +30,7 @@ public class Footsteps : MonoBehaviour
             {
                 var index = Random.Range(0, FootstepAudioClips.Length);
                 AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.position, FootstepAudioVolume);
+                Instantiate(particles, transform.position, Quaternion.LookRotation(Vector3.up));
             }
         }
     }

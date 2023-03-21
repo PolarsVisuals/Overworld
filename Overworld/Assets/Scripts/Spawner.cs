@@ -7,6 +7,7 @@ public class Spawner : MonoBehaviour
 {
     [Header("Rounds")]
     public int[] enemyCountPerRound;
+    public int enemyCountMulti;
     public int multiplier;
 
     public int enemyCount;
@@ -26,6 +27,8 @@ public class Spawner : MonoBehaviour
     public bool gameOver;
     public GameOverUI gameOverUI;
 
+    bool multiplierRound;
+
     public Transform[] spawnPoints;
     public float spawnTime = 2f;
     public GameObject skelly;
@@ -44,6 +47,7 @@ public class Spawner : MonoBehaviour
         canSpawn = true;
 
         gameOver = false;
+        multiplierRound = false;
     }
 
     private void Update()
@@ -79,9 +83,7 @@ public class Spawner : MonoBehaviour
                 }
                 if (currentRound > 5 && !maximumSpawned && canSpawn)
                 {
-                    enemyCountPerRound[currentRound - 1] = enemyCountPerRound[currentRound - 1] + multiplier;
-                    multiplier++;
-                    Spawn();
+                    SpawnMulti();
                 }
 
                 if (maximumSpawned)
@@ -119,6 +121,26 @@ public class Spawner : MonoBehaviour
 
         if (enemyCount == enemyCountPerRound[currentRound - 1])
         {
+            maximumSpawned = true;
+        }
+    }
+    void SpawnMulti()
+    {
+        int spawnPointIndex = Random.Range(0, spawnPoints.Length);
+
+        GameObject enemy = Instantiate(skelly, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+
+        enemies.Add(enemy);
+
+        enemyCount++;
+
+        canSpawn = false;
+
+        StartCoroutine(Cooldown());
+
+        if (enemyCount == enemyCountPerRound[5] + multiplier)
+        {
+            enemyCountPerRound[5] = enemyCountPerRound[5] + multiplier;
             maximumSpawned = true;
         }
     }

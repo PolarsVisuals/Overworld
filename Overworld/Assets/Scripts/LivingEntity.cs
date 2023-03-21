@@ -11,6 +11,7 @@ public class LivingEntity : MonoBehaviour
     public Image healthbar;
     public TextMeshProUGUI healthText;
     public Enemy enemyScript;
+    public GameObject enemyDeath;
     public SkinnedMeshRenderer[] meshs;
 
     private float currentHealth;
@@ -89,6 +90,14 @@ public class LivingEntity : MonoBehaviour
         foreach (SkinnedMeshRenderer mesh in meshs)
         {
             mesh.enabled = true;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if(enemyDeath != null)
+        {
+            Instantiate(enemyDeath, transform.position, Quaternion.LookRotation(Vector3.up));
         }
     }
 }

@@ -1231,6 +1231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
   damageDealer: {fileID: 8855319071059362001}
+  spawnCloud: {fileID: 6489927924484654555, guid: d39eadc40a2ff8c44bade47679db1422, type: 3}
   attackCD: 2
   attackRange: 1.25
   aggroRange: 100
@@ -1275,6 +1276,7 @@ MonoBehaviour:
   healthbar: {fileID: 0}
   healthText: {fileID: 0}
   enemyScript: {fileID: 4851325560317771222}
+  enemyDeath: {fileID: 6007930893249361624, guid: 2591ac086cba4194bb15ed19cac11e45, type: 3}
   meshs:
   - {fileID: 7390047373822542261}
   - {fileID: 5622980600636279964}

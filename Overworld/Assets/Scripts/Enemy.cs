@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     NavMeshAgent agent;
     GameObject player;
     public DamageDealer damageDealer;
+    public GameObject spawnCloud;
 
     [Header("Combat")]
     [SerializeField] float attackCD = 3f;
@@ -27,9 +28,16 @@ public class Enemy : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
 
-        canMove = true;
+        canMove = false;
         dead = false;
         activeTarget = true;
+        Instantiate(spawnCloud, transform.position, Quaternion.LookRotation(Vector3.up));
+        StartCoroutine(Spawned());
+    }
+    IEnumerator Spawned()
+    {
+        yield return new WaitForSeconds(2.15f);
+        canMove = true;
     }
 
     void Update()
