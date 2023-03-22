@@ -29,9 +29,12 @@ public class Spawner : MonoBehaviour
 
     bool multiplierRound;
 
+    public Transform[] areas;
     public Transform[] spawnPoints;
     public float spawnTime = 2f;
     public GameObject skelly;
+
+    private Transform player;
 
     public List<GameObject> enemies = new List<GameObject>();
 
@@ -48,10 +51,19 @@ public class Spawner : MonoBehaviour
 
         gameOver = false;
         multiplierRound = false;
+
+        player = GameObject.Find("Player").transform;
     }
 
     private void Update()
     {
+        Transform closetArea = GetClosestArea(areas);
+        Debug.DrawLine(player.position, closetArea.position, Color.red);
+        for(int i = 0; i < 4; i++)
+        {
+            spawnPoints[i] = closetArea.GetChild(i);
+        }
+
         ClearEnemies();
 
         roundNumText.text = currentRound.ToString();
@@ -83,6 +95,7 @@ public class Spawner : MonoBehaviour
                 }
                 if (currentRound > 5 && !maximumSpawned && canSpawn)
                 {
+                    spawnTime = spawnTime / 2;
                     SpawnMulti();
                 }
 
@@ -160,6 +173,23 @@ public class Spawner : MonoBehaviour
                 currentScore = currentScore + scorePerEnemy;
             }
         }
+    }
+
+    Transform GetClosestArea(Transform[] areas)
+    {
+        Transform tMin = null;
+        float minDist = Mathf.Infinity;
+        Vector3 currentPos = transform.position;
+        foreach (Transform area in areas)
+        {
+            float dist = Vector3.Distance(area.position, player.position);
+            if (dist < minDist)
+            {
+                tMin = area;
+                minDist = dist;
+            }
+        }
+        return tMin;
     }
 
     IEnumerator LoadGameOver()

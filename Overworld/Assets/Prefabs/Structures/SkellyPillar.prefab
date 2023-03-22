@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5400317972290551330}
   - component: {fileID: 1955689606782262491}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SkellyPillar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
 --- !u!1 &6339662405579218487
@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 646906562709291035}
   - component: {fileID: 6953169008135739276}
   - component: {fileID: 8034976457640782011}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Base Of StonePillar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,7 +142,7 @@ GameObject:
   - component: {fileID: 1291323173012256647}
   - component: {fileID: 3938124761464624266}
   - component: {fileID: 2525939274469057996}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StonePillarTop
   m_TagString: Untagged
   m_Icon: {fileID: 0}

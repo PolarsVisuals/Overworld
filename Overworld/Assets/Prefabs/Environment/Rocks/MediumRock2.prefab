@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2198614775859772071}
   - component: {fileID: 4136550985719549549}
   - component: {fileID: -1936688950837173248}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MediumRock2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

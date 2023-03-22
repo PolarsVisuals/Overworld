@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4358555520339624468}
   - component: {fileID: 1988414478373992158}
   - component: {fileID: 2575218963098508370}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StoneHut
   m_TagString: Untagged
   m_Icon: {fileID: 0}
