@@ -5394,7 +5394,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &366892647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32006,6 +32006,30 @@ PrefabInstance:
       propertyPath: attackForeground
       value: 
       objectReference: {fileID: 340101745}
+    - target: {fileID: 1295446803244176153, guid: d9094806bdff32a4ab09ff174bd5a436, type: 3}
+      propertyPath: combo.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1295446803244176153, guid: d9094806bdff32a4ab09ff174bd5a436, type: 3}
+      propertyPath: combo.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 732c85ad59ffcc841acf1ae2a6129430, type: 2}
+    - target: {fileID: 1295446803244176153, guid: d9094806bdff32a4ab09ff174bd5a436, type: 3}
+      propertyPath: combo.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 5dbbed82fe9f82b48ab7413771817fc6, type: 2}
+    - target: {fileID: 1295446803244176153, guid: d9094806bdff32a4ab09ff174bd5a436, type: 3}
+      propertyPath: combo.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 017c002563c491f468fcb23ae5ed2040, type: 2}
+    - target: {fileID: 1295446803244176153, guid: d9094806bdff32a4ab09ff174bd5a436, type: 3}
+      propertyPath: combo.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: fa20bb52bb9166f489d3df24b54b7660, type: 2}
+    - target: {fileID: 1295446803244176153, guid: d9094806bdff32a4ab09ff174bd5a436, type: 3}
+      propertyPath: combo.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: e7f5a9b3dc4f09a49993eabf0374e3f4, type: 2}
     - target: {fileID: 1295446804502049297, guid: d9094806bdff32a4ab09ff174bd5a436, type: 3}
       propertyPath: particles
       value: 
@@ -32160,8 +32184,8 @@ MonoBehaviour:
   player: {fileID: 7710481716742824532}
   playerObj: {fileID: 7710481715551208271}
   rb: {fileID: 7710481716742824535}
-  sensX: 180
-  sensY: 180
+  sensX: 20
+  sensY: 20
   TopClamp: 70
   BottomClamp: -50
   CinemachineCameraTarget: {fileID: 7710481715315298981}

@@ -42,14 +42,4 @@ public class Footsteps : MonoBehaviour
             AudioSource.PlayClipAtPoint(LandingAudioClip, transform.position, FootstepAudioVolume);
         }
     }
-
-    private void ReadyToCombo()
-    {
-        playerCombat.InitiateCombo();
-    }
-
-    private void EndAttack()
-    {
-        playerCombat.EndAttack();
-    }
 }

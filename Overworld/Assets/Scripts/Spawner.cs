@@ -96,7 +96,6 @@ public class Spawner : MonoBehaviour
                 }
                 if (currentRound > 5 && !maximumSpawned && canSpawn)
                 {
-                    spawnTime = spawnTime / 2;
                     SpawnMulti();
                 }
 

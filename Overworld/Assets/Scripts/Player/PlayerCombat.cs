@@ -12,19 +12,15 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] Spawner spawner;
 
     [Header("Attacking")]
-    [SerializeField] float comboCount;
-    [SerializeField] float attackCooldown;
+    public List<AttackSO> combo;
+    float lastTimeClicked;
+    float lastComboEnd;
+    int comboCounter;
+
     [SerializeField] float snapMin;
     [SerializeField] float snapMax;
-    public float attackCdTimer;
     public EnemyCrossahir enemyCrosshair;
 
-    [Header("HUD")]
-    public Image attackForeground;
-    bool smoothing;
-
-    bool canAttack;
-    public bool isAttacking;
     public bool isDead;
  
     private GameObject currentWeaponInHand;
@@ -37,12 +33,6 @@ public class PlayerCombat : MonoBehaviour
 
     private void Awake()
     {
-        isAttacking = false;
-        canAttack = true;
-
-        attackCdTimer = attackCooldown;
-        smoothing = false;
-
         isDead = false;
     }
 
@@ -59,15 +49,15 @@ public class PlayerCombat : MonoBehaviour
     {
         if (!isDead)
         {
-            targetedEnemy = GetClosestEnemy();
+            ExitAttack();
 
+            targetedEnemy = GetClosestEnemy();
             float distFromEnemy = Vector3.Distance(transform.position, targetedEnemy.position);
             Debug.DrawLine(transform.position, targetedEnemy.position, Color.blue);
 
-            if (Input.GetButtonDown("Attack") && playerMovement.grounded && canAttack)
-            {
-                canAttack = false;
 
+            if (Input.GetButtonDown("Attack") && playerMovement.grounded)
+            {
                 if (distFromEnemy <= snapMax)
                 {
                     if (distFromEnemy >= snapMin)
@@ -81,28 +71,7 @@ public class PlayerCombat : MonoBehaviour
                     }
                 }
 
-                if (isAttacking)
-                {
-                    ExecuteCombo();
-                }
-                else
-                {
-                    StartAttack();
-                }
-            }
-
-            if (attackCdTimer < attackCooldown)
-            {
-                attackCdTimer += Time.deltaTime;
-            }
-
-            if (smoothing)
-            {
-                float prevFill = attackForeground.fillAmount;
-                float currFill = attackCdTimer / attackCooldown;
-                if (currFill > prevFill) prevFill = Mathf.Min(prevFill + 0.05f, currFill);
-                else if (currFill < prevFill) prevFill = Mathf.Max(prevFill - 0.05f, currFill);
-                attackForeground.fillAmount = prevFill;
+                Attack();
             }
 
             if (distFromEnemy <= snapMax)
@@ -117,63 +86,40 @@ public class PlayerCombat : MonoBehaviour
         }
     }
 
-    private void StartAttack()
+    void Attack()
     {
-        isAttacking = true;
-
-        damageDealer.dealDamage = true;
-
-        playerMovement.canMove = false;
-        playerMovement.canJump = false;  
-
-        animator.SetTrigger("attack1");
-
-        comboCount = 1;
-    }
-
-    public void InitiateCombo()
-    {
-        canAttack = true;
-
-        damageDealer.dealDamage = false;
-    }
-
-    public void ExecuteCombo()
-    {
-        damageDealer.dealDamage = true;
-        if (comboCount == 1)
+        if(Time.time - lastComboEnd > .5f && comboCounter <= combo.Count)
         {
-            animator.SetTrigger("attack2");
+            CancelInvoke("EndCombo");
+
+            if(Time.time - lastTimeClicked >= .5f)
+            {
+                animator.runtimeAnimatorController = combo[comboCounter].animatorOV;
+                animator.Play("Attack", 1, 0);
+                damageDealer.damage = combo[comboCounter].damage;
+                comboCounter++;
+                lastTimeClicked = Time.time;
+
+                if(comboCounter + 1 > combo.Count)
+                {
+                    comboCounter = 0;
+                }
+            }
         }
-        else if (comboCount == 2)
+    }
+
+    void ExitAttack()
+    {
+        if(animator.GetCurrentAnimatorStateInfo(1).normalizedTime > 0.9f && animator.GetCurrentAnimatorStateInfo(1).IsTag("Attack"))
         {
-            animator.SetTrigger("attack3");
+            Invoke("EndCombo",1);
         }
-
-        comboCount++;
     }
 
-    public void EndAttack()
+    void EndCombo()
     {
-        //Debug.Log("Ended");
-        isAttacking = false;
-        StartCoroutine(AttackCooldown());
-
-        damageDealer.dealDamage = false;
-
-        playerMovement.canMove = true;
-        playerMovement.canJump = true;
-    }
-
-    IEnumerator AttackCooldown()
-    {
-        canAttack = false;
-        attackCdTimer = 0;
-        attackForeground.fillAmount = 0;
-        smoothing = true;
-        yield return new WaitForSeconds(attackCooldown);
-        smoothing = false;
-        canAttack = true;
+        comboCounter = 0;
+        lastComboEnd = Time.time;
     }
 
     Transform GetClosestEnemy()
