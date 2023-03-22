@@ -81,7 +81,7 @@ public class Enemy : MonoBehaviour
     void EndAttack()
     {
         canMove = true;
-        //Debug.Log("Enemy ended attack");
+        Debug.Log("Enemy ended attack");
         damageDealer.dealDamage = false;
     }
 

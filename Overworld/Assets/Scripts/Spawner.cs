@@ -33,6 +33,7 @@ public class Spawner : MonoBehaviour
     public Transform[] spawnPoints;
     public float spawnTime = 2f;
     public GameObject skelly;
+    public GameObject bossSkelly;
 
     private Transform player;
 
@@ -121,8 +122,18 @@ public class Spawner : MonoBehaviour
     void Spawn()
     {
         int spawnPointIndex = Random.Range(0, spawnPoints.Length);
+        int spawnBossNum = Random.Range(0, 38);
 
-        GameObject enemy = Instantiate(skelly, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+        GameObject enemy;
+
+        if(spawnBossNum == 19)
+        {
+            enemy = Instantiate(bossSkelly, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+        }
+        else
+        {
+            enemy = Instantiate(skelly, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+        }
 
         enemies.Add(enemy);
 
@@ -141,7 +152,18 @@ public class Spawner : MonoBehaviour
     {
         int spawnPointIndex = Random.Range(0, spawnPoints.Length);
 
-        GameObject enemy = Instantiate(skelly, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+        int spawnBossNum = Random.Range(0, 5);
+
+        GameObject enemy;
+
+        if (spawnBossNum == 2)
+        {
+            enemy = Instantiate(bossSkelly, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+        }
+        else
+        {
+            enemy = Instantiate(skelly, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+        }
 
         enemies.Add(enemy);
 

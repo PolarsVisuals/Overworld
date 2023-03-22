@@ -1,5 +1,67 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3786920763047786603
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7669603040534163060}
+  - component: {fileID: 7411206532349410425}
+  - component: {fileID: 7805395037385892842}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Enemy
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7669603040534163060
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3786920763047786603}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.000306, y: 0.00108, z: 7.5913e-11}
+  m_LocalScale: {x: 0.0020237002, y: 0.0025334002, z: 0.0018124001}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4418266744699926675}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7411206532349410425
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3786920763047786603}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7805395037385892842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3786920763047786603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddbdfa24369df1449b2ff6ae9234a123, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  theTag: Enemy
+  damage: 25
+  hitBox: {fileID: 7411206532349410425}
+  dealDamage: 0
 --- !u!1 &4418266744699926674
 GameObject:
   m_ObjectHideFlags: 0
@@ -32,6 +94,7 @@ Transform:
   - {fileID: 4418266746116571333}
   - {fileID: 4418266745002087769}
   - {fileID: 4418266744973770705}
+  - {fileID: 7669603040534163060}
   m_Father: {fileID: 4418266745161917396}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4663,8 +4726,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b715952822b79c24b97d0fdab1da568b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  damageDealer: {fileID: 0}
+  animator: {fileID: 3169444527555156166}
+  damageDealer: {fileID: 7805395037385892842}
   spawnCloud: {fileID: 6489927924484654555, guid: d39eadc40a2ff8c44bade47679db1422, type: 3}
   attackCD: 2
   attackRange: 1.25
@@ -4706,24 +4769,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea5831a658175d5478043fbb5252598d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 1
+  health: 10
   healthbar: {fileID: 0}
   healthText: {fileID: 0}
   enemyScript: {fileID: 2693723695022115579}
   enemyDeath: {fileID: 6007930893249361624, guid: 2591ac086cba4194bb15ed19cac11e45, type: 3}
   meshs:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 4418266746536075179}
+  - {fileID: 4418266745719296949}
+  - {fileID: 4418266745218622819}
+  - {fileID: 4418266745143991635}
+  - {fileID: 4418266745903567722}
+  - {fileID: 4418266746626608493}
+  - {fileID: 4418266746348069510}
+  - {fileID: 4418266745789342734}
+  - {fileID: 4418266746647625771}
+  - {fileID: 4418266746612336153}
+  - {fileID: 4418266746463123936}
+  - {fileID: 4418266744898225747}
+  - {fileID: 4418266744751331603}
+  - {fileID: 4418266745172872887}
+  - {fileID: 4418266745549715285}
+  - {fileID: 4418266746379488720}
+  - {fileID: 4418266746311164276}
   dead: 0

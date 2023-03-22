@@ -3163,7 +3163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   theTag: Enemy
-  damage: 25
+  damage: 10
   hitBox: {fileID: 7537493044842864161}
   dealDamage: 0
 --- !u!1 &6263945280380525501

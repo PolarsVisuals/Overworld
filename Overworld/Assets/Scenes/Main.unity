@@ -5394,7 +5394,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &366892647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5407,7 +5407,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71df63e49f525334a9b959e2f92ed26d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyCountPerRound: 0700000007000000090000000b0000000d0000000f000000
+  enemyCountPerRound: 030000000500000007000000090000000b0000000f000000
   enemyCountMulti: 0
   multiplier: 2
   enemyCount: 0
@@ -5445,6 +5445,7 @@ MonoBehaviour:
   - {fileID: 0}
   spawnTime: 1
   skelly: {fileID: 2231712409872956692, guid: c56a634b3130d044eb0a76f9c12d3de6, type: 3}
+  bossSkelly: {fileID: 8703763825219144249, guid: 2b224b94764806841be2790d050f429a, type: 3}
   enemies: []
 --- !u!4 &366892648
 Transform:
@@ -31993,6 +31994,10 @@ PrefabInstance:
       propertyPath: spawner
       value: 
       objectReference: {fileID: 366892647}
+    - target: {fileID: 1295446803244176153, guid: d9094806bdff32a4ab09ff174bd5a436, type: 3}
+      propertyPath: attackCooldown
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1295446803244176153, guid: d9094806bdff32a4ab09ff174bd5a436, type: 3}
       propertyPath: enemyCrosshair
       value: 

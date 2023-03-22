@@ -233,8 +233,9 @@ public class Grappling : MonoBehaviour
 
             if (distance < 1f)
             {
+                rb.AddForce(ray.direction * force, ForceMode.Impulse);
                 Debug.Log("Reached");
-                rb.velocity = Vector3.zero;
+                //rb.velocity = Vector3.zero;
                 currentHookedObj.GetComponent<MoveableObject>().dealDamage = false;
                 Invoke(nameof(StopGrapple), 0f);
             }
