@@ -8,6 +8,8 @@ using UnityEngine.EventSystems;
 public class MainMenu : MonoBehaviour
 {
     public GameObject firstButton;
+    public GameObject[] pannels;
+    public int pannelNum;
 
     private void Start()
     {
@@ -17,6 +19,24 @@ public class MainMenu : MonoBehaviour
     public void Play()
     {
         SceneManager.LoadScene("Tut");
+    }
+
+    private void Update()
+    {
+        if(pannels != null)
+        {
+            for (int i = 0; i < pannels.Length; i++)
+            {
+                if (pannelNum == i)
+                {
+                    pannels[i].SetActive(true);
+                }
+                else
+                {
+                    pannels[i].SetActive(false);
+                }
+            }
+        }
     }
 
     public void Load()
@@ -37,5 +57,23 @@ public class MainMenu : MonoBehaviour
     public void Exit()
     {
         Application.Quit();
+    }
+
+    public void leftPanel()
+    {
+        pannelNum--;
+        if(pannelNum == - 1)
+        {
+            pannelNum = 2;
+        }
+    }
+
+    public void RightPanel()
+    {
+        pannelNum++;
+        if (pannelNum == 3)
+        {
+            pannelNum = 0;
+        }
     }
 }

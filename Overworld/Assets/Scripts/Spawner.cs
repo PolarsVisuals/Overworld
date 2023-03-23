@@ -37,6 +37,8 @@ public class Spawner : MonoBehaviour
 
     private Transform player;
 
+    bool onetime;
+
     public List<GameObject> enemies = new List<GameObject>();
 
     private void Start()
@@ -51,6 +53,8 @@ public class Spawner : MonoBehaviour
         canSpawn = true;
 
         gameOver = false;
+
+        onetime = false;
         multiplierRound = false;
 
         player = GameObject.Find("Player").transform;
@@ -111,8 +115,9 @@ public class Spawner : MonoBehaviour
             }
         }
 
-        if(GameObject.Find("Player").GetComponent<LivingEntity>().dead == true)
+        if(GameObject.Find("Player").GetComponent<LivingEntity>().dead == true && !onetime)
         {
+            onetime = true;
             gameOver = true;
             StartCoroutine(LoadGameOver());
         }

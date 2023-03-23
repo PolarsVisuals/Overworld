@@ -7,6 +7,9 @@ using TMPro;
 public class LivingEntity : MonoBehaviour
 {
     public float health;
+    public float healthTimer;
+    public float healthCooldown;
+    public bool canHeal;
 
     public Image healthbar;
     public TextMeshProUGUI healthText;
@@ -22,10 +25,13 @@ public class LivingEntity : MonoBehaviour
     {
         currentHealth = health;
         dead = false;
+        canHeal = true;
     }
 
     private void Update()
     {
+        healthTimer += Time.deltaTime;
+
         if(currentHealth <= 0 && !dead)
         {
             if (gameObject.GetComponent<Enemy>())
@@ -56,6 +62,24 @@ public class LivingEntity : MonoBehaviour
         {
             currentHealth = 0;
         }
+
+        if(currentHealth < health && healthTimer > healthCooldown && canHeal)
+        {
+            canHeal = false;
+            healthTimer = 0;
+            AddHealth(1);
+        }
+    }
+
+    void AddHealth(float amount)
+    {
+        currentHealth = currentHealth + amount;
+        StartCoroutine(HealCooldown());
+    }
+    IEnumerator HealCooldown()
+    {
+        yield return new WaitForSeconds(1);
+        canHeal = true;
     }
 
     private void LateUpdate()
@@ -73,11 +97,17 @@ public class LivingEntity : MonoBehaviour
     public void TakeDamage(float amount)
     {
         currentHealth = currentHealth - amount;
-        if (GetComponent<Enemy>())
-        {
-            //SpawnFloatingText(amount);
-        }
+
+        StopCoroutine(HealCooldown());
+        StartCoroutine(StopRegen());
+
         StartCoroutine(FlickerMesh());
+    }
+    IEnumerator StopRegen()
+    {
+        canHeal = false;
+        yield return new WaitForSeconds(5);
+        canHeal = true;
     }
 
     IEnumerator FlickerMesh()
