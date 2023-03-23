@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 89458565805796508}
   m_LocalRotation: {x: 0.63274467, y: -0.12595847, z: 0.10531763, w: 0.75675416}
-  m_LocalPosition: {x: 0.000363, y: 0.001212, z: -0.000589}
+  m_LocalPosition: {x: 0.000442, y: 0.001153, z: -0.000911}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -202,7 +202,6 @@ MonoBehaviour:
   walkSpeed: 4
   sprintSpeed: 8
   groundDrag: 5
-  sprintParticles: {fileID: 0}
   isSprinting: 0
   canMove: 0
   isSnapping: 0
@@ -237,14 +236,15 @@ MonoBehaviour:
   weapon: {fileID: 5232661316363729149, guid: 168205d3a92419741a36fdabc5319d21, type: 3}
   weaponHolder: {fileID: 89458565805796508}
   spawner: {fileID: 0}
-  comboCount: 0
-  attackCooldown: 0.5
+  combo:
+  - {fileID: 11400000, guid: 732c85ad59ffcc841acf1ae2a6129430, type: 2}
+  - {fileID: 11400000, guid: 5dbbed82fe9f82b48ab7413771817fc6, type: 2}
+  - {fileID: 11400000, guid: 017c002563c491f468fcb23ae5ed2040, type: 2}
+  - {fileID: 11400000, guid: fa20bb52bb9166f489d3df24b54b7660, type: 2}
+  - {fileID: 11400000, guid: e7f5a9b3dc4f09a49993eabf0374e3f4, type: 2}
   snapMin: 2
   snapMax: 4
-  attackCdTimer: 0
   enemyCrosshair: {fileID: 0}
-  attackForeground: {fileID: 0}
-  isAttacking: 0
   isDead: 0
   enemies: []
   targetedEnemy: {fileID: 0}
@@ -428,6 +428,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 274649b0e221539409070ebf6c18918b, type: 3}
   - {fileID: 8300000, guid: a3194b8bbc96ef84fab1f98f4b7dae3e, type: 3}
   FootstepAudioVolume: 0.5
+  particles: {fileID: 4399141311113718742, guid: e37071ded8594864298ec22b7c5902cc, type: 3}
 --- !u!1 &1295446804536632294
 GameObject:
   m_ObjectHideFlags: 0
@@ -4014,7 +4015,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8861808933377138303}
-  m_LocalRotation: {x: -0.040005792, y: 0.2141948, z: 0.018367046, w: -0.9757986}
+  m_LocalRotation: {x: -0.04000579, y: 0.2141948, z: 0.018367045, w: -0.9757986}
   m_LocalPosition: {x: 6.018593e-10, y: 0.0003149613, z: 5.270614e-10}
   m_LocalScale: {x: 0.99999994, y: 0.9999998, z: 0.99999994}
   m_ConstrainProportionsScale: 0

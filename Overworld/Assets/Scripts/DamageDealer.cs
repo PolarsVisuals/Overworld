@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DamageDealer : MonoBehaviour
 {
-    public string theTag;
+    string theTag;
     public float damage;
 
     public Collider hitBox;
@@ -13,26 +13,25 @@ public class DamageDealer : MonoBehaviour
     private void Start()
     {
         dealDamage = false;
+        theTag = gameObject.tag;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.tag);
         if (other.tag != theTag)
         {
+            if (dealDamage)
             {
-                if (dealDamage)
+                if (other.gameObject.GetComponent<LivingEntity>())
                 {
-                    if (other.gameObject.GetComponent<LivingEntity>())
-                    {
-                        Debug.Log("Hit " + other.name);
-                        LivingEntity leScript = other.GetComponent<LivingEntity>();
+                    Debug.Log("Hit " + other.name);
+                    LivingEntity leScript = other.GetComponent<LivingEntity>();
 
-                        leScript.TakeDamage(damage);
-                    }
+                    leScript.TakeDamage(damage);
                 }
             }
         }
     }
 }
+
 

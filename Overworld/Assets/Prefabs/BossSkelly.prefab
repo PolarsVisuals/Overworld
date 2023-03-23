@@ -1,67 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3786920763047786603
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7669603040534163060}
-  - component: {fileID: 7411206532349410425}
-  - component: {fileID: 7805395037385892842}
-  m_Layer: 0
-  m_Name: Cube
-  m_TagString: Enemy
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7669603040534163060
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3786920763047786603}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.000306, y: 0.00108, z: 7.5913e-11}
-  m_LocalScale: {x: 0.0020237002, y: 0.0025334002, z: 0.0018124001}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4418266744699926675}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &7411206532349410425
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3786920763047786603}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7805395037385892842
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3786920763047786603}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddbdfa24369df1449b2ff6ae9234a123, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  theTag: Enemy
-  damage: 25
-  hitBox: {fileID: 7411206532349410425}
-  dealDamage: 0
 --- !u!1 &4418266744699926674
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,7 +32,7 @@ Transform:
   - {fileID: 4418266746116571333}
   - {fileID: 4418266745002087769}
   - {fileID: 4418266744973770705}
-  - {fileID: 7669603040534163060}
+  - {fileID: 585052397251808395}
   m_Father: {fileID: 4418266745161917396}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4434,7 +4372,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 39cd0f714261b6c4481917fb43b40eab, type: 2}
+  - {fileID: 2100000, guid: 82e42d22c3273c04898aa0e83970f717, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4626,6 +4564,67 @@ Transform:
   m_Father: {fileID: 4418266745150217853}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4994835332175514761
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 585052397251808395}
+  - component: {fileID: 5627786933027496172}
+  - component: {fileID: 2826159045355658382}
+  m_Layer: 0
+  m_Name: DamageDealer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &585052397251808395
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4994835332175514761}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.00037, y: 0.00132, z: -0}
+  m_LocalScale: {x: 0.0014186985, y: 0.0035075434, z: 0.0025005091}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4418266744699926675}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5627786933027496172
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4994835332175514761}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2826159045355658382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4994835332175514761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddbdfa24369df1449b2ff6ae9234a123, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 20
+  hitBox: {fileID: 5627786933027496172}
+  dealDamage: 0
 --- !u!1 &8703763825219144249
 GameObject:
   m_ObjectHideFlags: 0
@@ -4710,10 +4709,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.35637584
-  m_Height: 1.9564222
+  m_Radius: 0.5787621
+  m_Height: 3.5609128
   m_Direction: 1
-  m_Center: {x: 0, y: 1.053211, z: 0}
+  m_Center: {x: 0, y: 1.8554562, z: 0}
 --- !u!114 &2693723695022115579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4727,9 +4726,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 3169444527555156166}
-  damageDealer: {fileID: 7805395037385892842}
+  damageDealer: {fileID: 2826159045355658382}
   spawnCloud: {fileID: 6489927924484654555, guid: d39eadc40a2ff8c44bade47679db1422, type: 3}
-  attackCD: 2
+  attackCD: 5
   attackRange: 1.25
   aggroRange: 100
   canMove: 0

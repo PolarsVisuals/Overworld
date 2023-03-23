@@ -44,7 +44,6 @@ public class Enemy : MonoBehaviour
     {
         if (dead)
         {
-            damageDealer.dealDamage = false;
             activeTarget = false;
             agent.destination = transform.position;
             return;
@@ -60,9 +59,14 @@ public class Enemy : MonoBehaviour
             if(Vector3.Distance(player.transform.position, transform.position) <= attackRange)
             {
                 canMove = false;
-                animator.SetTrigger("Attack");            
+                animator.SetTrigger("Attack");
+                damageDealer.dealDamage = true;
                 timePassed = 0;
             }
+        }
+        else
+        {
+            damageDealer.dealDamage = false;
         }
 
         if (Vector3.Distance(player.transform.position, transform.position) <= aggroRange && canMove)
@@ -71,18 +75,6 @@ public class Enemy : MonoBehaviour
             agent.destination = player.transform.position;
         }
 
-    }
-
-    void StartAttack()
-    {
-        damageDealer.dealDamage = true;
-    }
-
-    void EndAttack()
-    {
-        canMove = true;
-        Debug.Log("Enemy ended attack");
-        damageDealer.dealDamage = false;
     }
 
     private void OnDrawGizmos()

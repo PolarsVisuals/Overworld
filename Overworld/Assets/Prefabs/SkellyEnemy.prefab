@@ -1229,8 +1229,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b715952822b79c24b97d0fdab1da568b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  damageDealer: {fileID: 8855319071059362001}
+  animator: {fileID: 5606269636998918123}
+  damageDealer: {fileID: 918822041238948973}
   spawnCloud: {fileID: 6489927924484654555, guid: d39eadc40a2ff8c44bade47679db1422, type: 3}
   attackCD: 2
   attackRange: 1.25
@@ -3109,8 +3109,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2005483740531826816}
-  - component: {fileID: 7537493044842864161}
-  - component: {fileID: 8855319071059362001}
   m_Layer: 0
   m_Name: hand.R
   m_TagString: Untagged
@@ -3134,38 +3132,10 @@ Transform:
   - {fileID: 2502713772905633744}
   - {fileID: 3345972622993762383}
   - {fileID: 1767283947097424408}
+  - {fileID: 5499043614370691577}
   m_Father: {fileID: 1203298895856055181}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &7537493044842864161
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6130867742306110196}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.0014053903, y: 0.0027478607, z: 0.001867084}
-  m_Center: {x: 0.0003162219, y: 0.0011740451, z: -0.0000000023171842}
---- !u!114 &8855319071059362001
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6130867742306110196}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddbdfa24369df1449b2ff6ae9234a123, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  theTag: Enemy
-  damage: 10
-  hitBox: {fileID: 7537493044842864161}
-  dealDamage: 0
 --- !u!1 &6263945280380525501
 GameObject:
   m_ObjectHideFlags: 0
@@ -3506,6 +3476,67 @@ Transform:
   m_Father: {fileID: 5478164542701662397}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6959013706431603428
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5499043614370691577}
+  - component: {fileID: 4048271078077510459}
+  - component: {fileID: 918822041238948973}
+  m_Layer: 0
+  m_Name: DamageDealer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5499043614370691577
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6959013706431603428}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.000406, y: 0.000997, z: 0.00031}
+  m_LocalScale: {x: 0.0020077, y: 0.0037768001, z: 0.0022384}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2005483740531826816}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &4048271078077510459
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6959013706431603428}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &918822041238948973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6959013706431603428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddbdfa24369df1449b2ff6ae9234a123, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 5
+  hitBox: {fileID: 4048271078077510459}
+  dealDamage: 0
 --- !u!1 &6974335387843365025
 GameObject:
   m_ObjectHideFlags: 0

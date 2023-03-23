@@ -83,20 +83,30 @@ public class PlayerCombat : MonoBehaviour
             {
                 enemyCrosshair.TurnOff();
             }
+
+            if (Input.GetButtonDown("Jump"))
+            {
+                EndCombo();
+            }
         }
     }
 
     void Attack()
     {
-        if(Time.time - lastComboEnd > .5f && comboCounter <= combo.Count)
+        if(Time.time - lastComboEnd > .3f && comboCounter <= combo.Count)
         {
             CancelInvoke("EndCombo");
 
-            if(Time.time - lastTimeClicked >= .5f)
+            if(Time.time - lastTimeClicked >= .3f)
             {
+                playerMovement.canMove = false;
+
                 animator.runtimeAnimatorController = combo[comboCounter].animatorOV;
                 animator.Play("Attack", 1, 0);
+
                 damageDealer.damage = combo[comboCounter].damage;
+                damageDealer.dealDamage = true;
+
                 comboCounter++;
                 lastTimeClicked = Time.time;
 
@@ -112,14 +122,18 @@ public class PlayerCombat : MonoBehaviour
     {
         if(animator.GetCurrentAnimatorStateInfo(1).normalizedTime > 0.9f && animator.GetCurrentAnimatorStateInfo(1).IsTag("Attack"))
         {
-            Invoke("EndCombo",1);
+            playerMovement.canMove = true;
+            Invoke("EndCombo",.5f);
         }
     }
 
     void EndCombo()
     {
+        playerMovement.canMove = true;
         comboCounter = 0;
         lastComboEnd = Time.time;
+
+        damageDealer.dealDamage = false;
     }
 
     Transform GetClosestEnemy()
