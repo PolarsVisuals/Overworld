@@ -27,6 +27,16 @@ public class DamageDealer : MonoBehaviour
                     Debug.Log("Hit " + other.name);
                     LivingEntity leScript = other.GetComponent<LivingEntity>();
 
+                    if (gameObject.GetComponentInParent<PlayerCombat>())
+                    {
+                        gameObject.GetComponentInParent<PlayerCombat>().PlaySwordHit();
+                    }
+                    if (gameObject.GetComponentInParent<Enemy>())
+                    {
+                        gameObject.GetComponentInParent<Enemy>().PlayImpact();
+                        dealDamage = false;
+                    }
+
                     leScript.TakeDamage(damage);
                 }
             }

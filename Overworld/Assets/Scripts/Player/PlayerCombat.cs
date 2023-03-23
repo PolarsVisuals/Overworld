@@ -17,6 +17,11 @@ public class PlayerCombat : MonoBehaviour
     float lastComboEnd;
     int comboCounter;
 
+    [Header("Sounds")]
+    private AudioSource source;
+    public AudioClip[] swordSwings;
+    public AudioClip[] swordHits;
+
     [SerializeField] float snapMin;
     [SerializeField] float snapMax;
     public EnemyCrossahir enemyCrosshair;
@@ -43,6 +48,20 @@ public class PlayerCombat : MonoBehaviour
         currentWeaponInHand = Instantiate(weapon, weaponHolder.transform);
 
         damageDealer = currentWeaponInHand.GetComponent<DamageDealer>();
+        source = currentWeaponInHand.GetComponent<AudioSource>();
+    }
+
+    public void PlaySwordSwing()
+    {
+        int clip = Random.Range(0, swordSwings.Length);
+        source.clip = swordSwings[clip];
+        source.Play();
+    }
+    public void PlaySwordHit()
+    {
+        int clip = Random.Range(0, swordSwings.Length);
+        source.clip = swordHits[clip];
+        source.Play();
     }
 
     private void Update()

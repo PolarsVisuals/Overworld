@@ -17,6 +17,11 @@ public class Enemy : MonoBehaviour
     [SerializeField] float attackRange = 1f;
     [SerializeField] float aggroRange = 4f;
 
+    [Header("Sounds")]
+    public AudioSource source;
+    public AudioClip[] impacts;
+    public AudioClip spawn;
+
     float timePassed;
     public bool canMove;
     public bool dead;
@@ -33,6 +38,8 @@ public class Enemy : MonoBehaviour
         activeTarget = true;
         Instantiate(spawnCloud, transform.position, Quaternion.LookRotation(Vector3.up));
         StartCoroutine(Spawned());
+        source.clip = spawn;
+        source.Play();
     }
     IEnumerator Spawned()
     {
@@ -60,13 +67,9 @@ public class Enemy : MonoBehaviour
             {
                 canMove = false;
                 animator.SetTrigger("Attack");
-                damageDealer.dealDamage = true;
+
                 timePassed = 0;
             }
-        }
-        else
-        {
-            damageDealer.dealDamage = false;
         }
 
         if (Vector3.Distance(player.transform.position, transform.position) <= aggroRange && canMove)
@@ -77,6 +80,29 @@ public class Enemy : MonoBehaviour
 
     }
 
+    void StartDamage()
+    {
+        damageDealer.dealDamage = true;
+    }
+
+    void StopDamage()
+    {
+        canMove = true;
+        damageDealer.dealDamage = false;
+    }
+
+    public void PlayImpact()
+    {
+        int clip = Random.Range(0, impacts.Length);
+        source.clip = impacts[clip];
+        source.Play();
+    }
+
+    public void SpawnImpact()
+    {
+        Instantiate(spawnCloud, transform.position, Quaternion.LookRotation(Vector3.up));
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -84,4 +110,5 @@ public class Enemy : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, aggroRange);
     }
+
 }

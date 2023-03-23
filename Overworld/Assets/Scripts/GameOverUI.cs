@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using TMPro;
 
 public class GameOverUI : MonoBehaviour
 {
     public Spawner Spawner;
+    public GameObject firstButton;
 
     public Image fadePlane;
     public GameObject gameOverUI;
@@ -21,6 +23,7 @@ public class GameOverUI : MonoBehaviour
     public void OnGameOver()
     {
         gameOverUI.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(firstButton);
         //StartCoroutine(Fade(Color.clear, Color.black, 1));
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;

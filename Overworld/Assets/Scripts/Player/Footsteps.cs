@@ -42,4 +42,9 @@ public class Footsteps : MonoBehaviour
             AudioSource.PlayClipAtPoint(LandingAudioClip, transform.position, FootstepAudioVolume);
         }
     }
+
+    public void PlaySwordSwing()
+    {
+        playerCombat.PlaySwordSwing();
+    }
 }
